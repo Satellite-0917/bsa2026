@@ -14,6 +14,13 @@
   * {
     font-family: 'Pretendard', 'Noto Sans KR', sans-serif !important;
   }
+  .doc-top {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 999;
+    padding-bottom: 12px;
+  }
     /* ═══════════════════════════════════════════════
        TOKENS
     ═══════════════════════════════════════════════ */
@@ -475,7 +482,7 @@ body {
 <div id="lock-overlay">
   <div class="lock-modal">
     <div class="lock-eyebrow">▪ RESTRICTED · INTERNAL USE ONLY</div>
-    <h2>출연자 '백승아'의 기록을<br/>열람하시겠습니까?</h2>
+    <h2>출연자 '백승아'의 기록을 열람하시겠습니까?</h2>
     <p>기록을 열람하려면 비밀번호를 입력하세요.</p>
     <input type="password" id="pw-input" placeholder="비밀번호 입력" autocomplete="off" autofocus />
     <button id="pw-submit" disabled>열람하기</button>
@@ -513,7 +520,7 @@ body {
     <!-- Doc Top -->
     <div class="doc-top">
       <div class="doc-stamp">Confidential · Internal Use Only</div>
-        <div class="doc-program">〈연애 남매〉 출연자 기본 프로필 서면지</div>
+        <div class="doc-program">〈연애, 남에3〉출연자 기록</div>
         <h1 class="doc-main-title">백승아</h1>
         <div class="doc-notice">작성 전 안내: 편하게 작성해주세요. 중간에 담당 작가가 추가 질문을 드릴 수 있습니다.</div>
         <div class="doc-divider"></div>
