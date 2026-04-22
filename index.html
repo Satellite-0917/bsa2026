@@ -498,32 +498,52 @@ body {
   font-size: 13px;
 }
 
-    /* Writer follow-up */
-    .writer-block {
-      margin-top: 10px; margin-left: 20px;
-    }
-    .writer-q {
-      font-size: 12px; color: var(--writer-text);
-      margin-bottom: 6px; display: flex; gap: 7px;
-      padding: 8px 12px;
-      background: var(--writer-bg); border: 1px solid var(--writer-border);
-      border-radius: 2px 2px 0 0; border-bottom: none;
-      font-style: italic;
-    }
-    .writer-q::before {
-      content: '↳'; font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px; color: var(--text-muted); flex-shrink: 0;
-    }
-    .writer-a {
-      font-size: 13px; color: var(--text-primary);
-      line-height: 1.85; padding: 12px 16px;
-      background: var(--surface); border: 1px solid var(--writer-border);
-      border-radius: 0 0 2px 2px; min-height: 42px; white-space: pre-wrap;
-    }
-    .writer-a:empty::before {
-      content: attr(data-placeholder);
-      color: var(--text-muted); font-style: italic; font-size: 12px;
-    }
+/* Writer follow-up */
+.writer-block {
+  margin-top: 12px;
+  margin-left: 16px;
+}
+
+.writer-q {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--writer-bg);
+  border: 1px solid var(--writer-border);
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+
+.writer-q::before {
+  content: '↳';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.writer-a {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.75;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--writer-border);
+  border-radius: 0 0 4px 4px;
+  min-height: 48px;
+  white-space: pre-wrap;
+}
+
+.writer-a:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 13px;
+}
 
 /* ═══════════════════════════════════════════════
    PARENT INTERVIEW SECTION
