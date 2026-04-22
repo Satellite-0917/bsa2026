@@ -706,10 +706,16 @@
 <button id="save-btn">저장하기</button>
 <div id="save-toast">SAVED ✓</div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ════════════════════════════════════════
+const supabase = supabase.createClient(
+  "https://wrfjgzdcjgokqclcfmxk.supabase.co",
+  "sb_publishable_-SnHq5UNx6ayAk9RRzzrKg_lSJJMtDB"
+);
+
+/* ====================================
    CONFIG
-════════════════════════════════════════ */
+==================================== */
 const PW_VIEWER = 'bsa2026';
 const PW_ADMIN  = 'chfhr2026';
 const STORAGE_KEY = 'bsa_profile_v2';
