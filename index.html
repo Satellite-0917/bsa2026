@@ -229,9 +229,9 @@
 
     /* Info + Photo 나란히 */
     .info-with-photo {
-      display: flex; gap: 0; align-items: stretch;
-      border: 1px solid var(--border); border-radius: 2px; overflow: hidden;
-    }
+  display: grid; grid-template-columns: auto 1fr; gap: 0;
+  border: 1px solid var(--border); border-radius: 2px; overflow: hidden;
+}
     /* info-grid는 자체 border 제거 — 바깥 wrapper가 처리 */
     .info-with-photo .info-grid {
       flex: 1; border: none; border-radius: 0;
@@ -242,7 +242,8 @@
 
     /* Photo slot — 표 전체 높이에 맞춤 */
     .photo-slot {
-  aspect-ratio: 3 / 4; flex-shrink: 0;
+  aspect-ratio: 3 / 4;
+  height: 100%;
   border-right: 1px solid var(--border);
   background: var(--photo-bg);
   display: flex; flex-direction: column;
