@@ -746,22 +746,33 @@ const ALL_IDS = [...INFO_IDS, ...QA_IDS];
 /* ════════════════════════════════════════
    DATA PERSISTENCE
 ════════════════════════════════════════ */
-function loadData() {
+async function loadData() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const d = JSON.parse(raw);
+    const { data, error } = await supabaseClient
+      .from('profile_data')
+      .select('*')
+      .eq('id', 1)
+      .single();
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    if (data && data.data) {
       ALL_IDS.forEach(id => {
-        if (d[id] !== undefined) {
+        if (data.data[id] !== undefined) {
           const el = document.getElementById(id);
-          if (el) el.textContent = d[id];
+          if (el) el.textContent = data.data[id];
         }
       });
     }
-    // Photo
+
     const photo = localStorage.getItem(PHOTO_KEY);
     if (photo) setPhotoPreview(photo);
-  } catch(e) {}
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 async function saveData() {
@@ -858,10 +869,10 @@ function tryUnlock() {
   }
 }
 
-function unlock(isAdmin) {
+async function unlock(isAdmin) {
   overlay.classList.add('hidden');
   app.classList.add('visible');
-  loadData();
+  await loadData();
   if (isAdmin) enableAdmin();
 }
 
