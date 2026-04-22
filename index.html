@@ -21,6 +21,35 @@
     z-index: 999;
     padding-bottom: 12px;
   }
+  .toc {
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.toc li {
+  margin-bottom: 6px;
+}
+
+.toc-link {
+  font-size: 15px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.toc-link:hover {
+  color: var(--text-primary);
+  background: var(--surface-2);
+}
+
+.toc-link.active {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: var(--surface-3);
+}
     /* ═══════════════════════════════════════════════
        TOKENS
     ═══════════════════════════════════════════════ */
