@@ -192,7 +192,7 @@
     #content {
       flex: 1; min-width: 0;
       padding: 52px 72px 120px 64px;
-      max-width: 960px;
+      max-width: 720px;
     }
 
     /* ═══════════════════════════════════════════════
@@ -242,16 +242,15 @@
 
     /* Photo slot — 표 전체 높이에 맞춤 */
     .photo-slot {
-      width: 120px; flex-shrink: 0;
-      border-right: 1px solid var(--border);
-      background: var(--photo-bg);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 6px; cursor: pointer;
-      transition: border-color 0.2s;
-      overflow: hidden; position: relative;
-      /* 높이는 부모 stretch로 자동 결정 */
-    }
+  width: 120px; aspect-ratio: 3 / 4; flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  background: var(--photo-bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 6px; cursor: pointer;
+  transition: border-color 0.2s;
+  overflow: hidden; position: relative;
+}
     .photo-slot:hover { border-color: var(--accent); }
     .photo-slot img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
     .photo-slot-icon { font-size: 20px; color: var(--text-muted); }
@@ -439,9 +438,9 @@
     ═══════════════════════════════════════════════ */
     @media (max-width: 860px) {
       #sidebar { display: none; }
-      #content { padding: 32px 24px 80px; }
+      #content { padding: 32px 24px 80px; max-width: 100%; }
       .info-with-photo { flex-direction: column; }
-      .photo-slot { width: 100%; height: 160px; border-right: none; border-bottom: 1px solid var(--border); }
+      .photo-slot { width: 100%; aspect-ratio: 3 / 4; border-right: none; border-bottom: 1px solid var(--border); }
       .parent-answers { grid-template-columns: 1fr; }
     }
   </style>
