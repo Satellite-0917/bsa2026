@@ -207,11 +207,13 @@ body {
     /* ═══════════════════════════════════════════════
        MAIN CONTENT
     ═══════════════════════════════════════════════ */
-    #content {
-      flex: 1; min-width: 0;
-      padding: 52px 72px 120px 64px;
-      max-width: 720px;
-    }
+#content {
+  flex: 1; min-width: 0;
+  width: 100%;
+  padding: 52px 72px 120px 64px;
+  max-width: 920px;
+  margin: 0 auto;
+}
 
     /* ═══════════════════════════════════════════════
        DOCUMENT HEADER  (with photo slot)
@@ -260,6 +262,7 @@ body {
 
     /* Photo slot — 표 전체 높이에 맞춤 */
     .photo-slot {
+  width: 220px;
   aspect-ratio: 3 / 4;
   height: 100%;
   border-right: 1px solid var(--border);
