@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>백승아 — 캐릭터 파일</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0c0a;
+    --card: #1c1814;
+    --border: #2e2820;
+    --accent: #c9a96e;
+    --accent2: #e8c9a0;
+    --text: #e8e0d5;
+    --text-muted: #8a7d6e;
+    --text-dim: #3a3530;
+    --red: #c97a6e;
+    --green: #7ec97e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; min-height:100vh; overflow-x:hidden; }
+
+  /* LOCK */
+  #lock-screen {
+    position:fixed; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; background:var(--bg); z-index:100;
+  }
+  .lock-deco {
+    font-family:'DM Serif Display',serif; font-size:80px; color:var(--accent);
+    opacity:0.1; letter-spacing:0.15em; margin-bottom:4px; user-select:none;
+    animation:breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100%{opacity:0.1;transform:scale(1)}
+    50%{opacity:0.06;transform:scale(0.98)}
+  }
+  .lock-subtitle { font-size:11px; letter-spacing:0.45em; color:var(--text-muted); text-transform:uppercase; margin-bottom:56px; }
+  .lock-box { display:flex; flex-direction:column; align-items:center; gap:12px; width:300px; }
+  .lock-label { font-size:10px; letter-spacing:0.3em; color:var(--text-muted); align-self:flex-start; text-transform:uppercase; }
+  .lock-input {
+    width:100%; background:var(--card); border:1px solid var(--border);
+    color:var(--text); font-family:'Noto Sans KR',sans-serif; font-size:14px;
+    letter-spacing:0.1em; padding:14px 18px; text-align:center; outline:none;
+    transition:border-color 0.3s; -webkit-appearance:none;
+  }
+  .lock-input::placeholder { color:var(--text-dim); }
+  .lock-input:focus { border-color:var(--accent); }
+  .lock-btn {
+    width:100%; background:transparent; border:1px solid var(--accent);
+    color:var(--accent); font-family:'Noto Sans KR',sans-serif; font-size:11px;
+    letter-spacing:0.35em; padding:13px; cursor:pointer; transition:all 0.25s; margin-top:4px;
+  }
+  .lock-btn:hover { background:var(--accent); color:var(--bg); }
+  .lock-error { font-size:11px; color:var(--red); letter-spacing:0.08em; height:16px; opacity:0; transition:opacity 0.3s; }
+  .lock-error.show { opacity:1; }
+
+  /* MAIN */
+  #main { display:none; opacity:0; transition:opacity 0.6s; }
+  #main.visible { opacity:1; }
+
+  /* HEADER */
+  .site-header {
+    border-bottom:1px solid var(--border); padding:36px 56px;
+    display:flex; align-items:flex-end; justify-content:space-between;
+  }
+  .header-name { font-family:'DM Serif Display',serif; font-size:48px; color:var(--accent2); line-height:1; }
+  .header-meta { display:flex; gap:16px; margin-top:10px; align-items:center; }
+  .header-sub { font-size:10px; letter-spacing:0.35em; color:var(--text-muted); text-transform:uppercase; }
+  .mode-badge { font-size:10px; letter-spacing:0.2em; padding:4px 10px; border:1px solid; text-transform:uppercase; }
+  .mode-badge.viewer { color:var(--text-muted); border-color:var(--border); }
+  .mode-badge.admin { color:var(--accent); border-color:var(--accent); }
+  .header-actions { display:flex; gap:8px; align-items:center; }
+  .action-btn {
+    font-size:10px; letter-spacing:0.2em; color:var(--text-muted); background:none;
+    border:1px solid var(--border); padding:9px 16px; cursor:pointer;
+    transition:all 0.25s; font-family:'Noto Sans KR',sans-serif; text-transform:uppercase;
+  }
+  .action-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .action-btn.save-btn { border-color:var(--accent); color:var(--accent); }
+  .action-btn.save-btn:hover { background:var(--accent); color:var(--bg); }
+  .action-btn.saved { border-color:var(--green); color:var(--green); pointer-events:none; }
+
+  /* LAYOUT */
+  .container { max-width:1000px; margin:0 auto; padding:40px 56px 80px; display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .section { background:var(--card); border:1px solid var(--border); padding:30px; }
+  .section.full { grid-column:1/-1; }
+  .section-label { font-size:10px; letter-spacing:0.4em; color:var(--accent); text-transform:uppercase; margin-bottom:22px; display:flex; align-items:center; gap:10px; }
+  .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* FIELD */
+  .field { margin-bottom:20px; }
+  .field:last-child { margin-bottom:0; }
+  .field-label { font-size:10px; letter-spacing:0.25em; color:var(--text-muted); margin-bottom:7px; text-transform:uppercase; }
+  .field-value {
+    font-family:'Noto Serif KR',serif; font-size:14px; color:var(--text);
+    line-height:1.75; min-height:22px; border-bottom:1px solid transparent;
+    padding:3px 0; transition:all 0.2s; white-space:pre-wrap; word-break:break-all;
+  }
+  .field-value[contenteditable="true"] { outline:none; border-bottom:1px solid var(--border); padding:3px 8px; background:rgba(255,255,255,0.015); cursor:text; }
+  .field-value[contenteditable="true"]:focus { border-bottom-color:var(--accent); background:rgba(201,169,110,0.03); }
+  .field-value:empty::before { content:attr(data-placeholder); color:var(--text-dim); font-style:italic; font-size:13px; }
+
+  /* Q&A */
+  .qa-item { padding:22px 0; border-bottom:1px solid var(--border); }
+  .qa-item:first-child { padding-top:0; }
+  .qa-item:last-child { border-bottom:none; padding-bottom:0; }
+  .qa-q { font-size:11px; letter-spacing:0.15em; color:var(--accent); margin-bottom:10px; font-family:'Noto Sans KR',sans-serif; font-weight:500; display:flex; gap:8px; align-items:flex-start; }
+  .qa-q-num { opacity:0.5; flex-shrink:0; }
+  .qa-q-text[contenteditable="true"] { outline:none; border-bottom:1px dashed rgba(201,169,110,0.3); padding-bottom:1px; cursor:text; }
+  .qa-a { font-family:'Noto Serif KR',serif; font-size:14px; color:var(--text); line-height:1.8; padding-left:20px; min-height:22px; white-space:pre-wrap; }
+  .qa-a[contenteditable="true"] { outline:none; border-left:2px solid var(--border); padding-left:14px; background:rgba(255,255,255,0.01); cursor:text; transition:border-color 0.2s; }
+  .qa-a[contenteditable="true"]:focus { border-left-color:var(--accent); background:rgba(201,169,110,0.025); }
+  .qa-a:empty::before { content:attr(data-placeholder); color:var(--text-dim); font-style:italic; font-size:13px; }
+  .add-qa-btn { display:none; margin-top:18px; background:none; border:1px dashed var(--border); color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-size:11px; letter-spacing:0.2em; padding:10px; width:100%; cursor:pointer; transition:all 0.25s; }
+  .add-qa-btn:hover { border-color:var(--accent); color:var(--accent); }
+  body.admin-mode .add-qa-btn { display:block; }
+
+  /* TAGS */
+  .tags-wrap { display:flex; flex-wrap:wrap; gap:8px; min-height:28px; }
+  .tag { font-size:11px; letter-spacing:0.1em; color:var(--text-muted); border:1px solid var(--border); padding:5px 11px; font-family:'Noto Sans KR',sans-serif; position:relative; }
+  body.admin-mode .tag { padding-right:24px; }
+  .tag-del { display:none; position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--red); cursor:pointer; font-size:12px; line-height:1; padding:0; }
+  body.admin-mode .tag-del { display:block; }
+  .tag-add { display:none; background:none; border:1px dashed var(--border); color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-size:11px; letter-spacing:0.15em; padding:5px 11px; cursor:pointer; transition:all 0.25s; }
+  .tag-add:hover { border-color:var(--accent); color:var(--accent); }
+  body.admin-mode .tag-add { display:inline-flex; align-items:center; gap:5px; }
+
+  /* TOAST */
+  #toast { position:fixed; bottom:32px; right:32px; background:var(--card); border:1px solid var(--accent); color:var(--accent); font-size:11px; letter-spacing:0.2em; padding:12px 20px; opacity:0; transform:translateY(8px); transition:all 0.3s; pointer-events:none; z-index:50; }
+  #toast.show { opacity:1; transform:translateY(0); }
+
+  @media(max-width:700px){
+    .container{grid-template-columns:1fr;padding:24px;}
+    .section.full{grid-column:1;}
+    .site-header{padding:24px;flex-direction:column;align-items:flex-start;gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="lock-screen">
+  <div class="lock-deco">BSA</div>
+  <div class="lock-subtitle">Character File — Private</div>
+  <div class="lock-box">
+    <div class="lock-label">비밀번호 입력</div>
+    <input type="password" class="lock-input" id="pw-input" placeholder="password" autocomplete="off">
+    <button class="lock-btn" onclick="tryUnlock()">ENTER</button>
+    <div class="lock-error" id="lock-error">올바르지 않은 비밀번호입니다</div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div id="main">
+  <header class="site-header">
+    <div class="header-left">
+      <div class="header-name">백승아</div>
+      <div class="header-meta">
+        <span class="header-sub">Character Interview File</span>
+        <span class="mode-badge viewer" id="mode-badge">VIEWER</span>
+      </div>
+    </div>
+    <div class="header-actions" id="header-actions"></div>
+  </header>
+
+  <div class="container">
+
+    <div class="section">
+      <div class="section-label">기본 프로필</div>
+      <div class="field">
+        <div class="field-label">이름</div>
+        <div class="field-value" data-key="name" data-placeholder="백승아"></div>
+      </div>
+      <div class="field">
+        <div class="field-label">나이 / 생년월일</div>
+        <div class="field-value" data-key="age" data-placeholder="미입력"></div>
+      </div>
+      <div class="field">
+        <div class="field-label">직업 / 소속</div>
+        <div class="field-value" data-key="job" data-placeholder="미입력"></div>
+      </div>
+      <div class="field">
+        <div class="field-label">외형 메모</div>
+        <div class="field-value" data-key="appearance" data-placeholder="외모, 스타일, 첫인상 등"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">성격 &amp; 키워드</div>
+      <div class="field">
+        <div class="field-label">한 줄 소개</div>
+        <div class="field-value" data-key="intro" data-placeholder="이 캐릭터를 한 문장으로 표현하면?"></div>
+      </div>
+      <div class="field">
+        <div class="field-label">성격 키워드</div>
+        <div class="tags-wrap" id="tags-personality">
+          <button class="tag-add" onclick="addTag('tags-personality')">+ 추가</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">말투 / 어조</div>
+        <div class="field-value" data-key="speech" data-placeholder="말투, 자주 쓰는 표현, 어조 특징 등"></div>
+      </div>
+      <div class="field">
+        <div class="field-label">좋아하는 것 / 싫어하는 것</div>
+        <div class="field-value" data-key="likedislike" data-placeholder="취향, 회피하는 것 등"></div>
+      </div>
+    </div>
+
+    <div class="section full">
+      <div class="section-label">배경 설정</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div class="field">
+            <div class="field-label">가족 / 성장 배경</div>
+            <div class="field-value" data-key="background" data-placeholder="출신, 가족관계, 성장 환경 등"></div>
+          </div>
+          <div class="field">
+            <div class="field-label">현재 상황</div>
+            <div class="field-value" data-key="current" data-placeholder="현재 생활, 고민, 처한 환경 등"></div>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <div class="field-label">숨기고 있는 것 / 내면</div>
+            <div class="field-value" data-key="hidden" data-placeholder="겉으로 안 드러나는 면, 콤플렉스, 욕망 등"></div>
+          </div>
+          <div class="field">
+            <div class="field-label">세계관 내 위치</div>
+            <div class="field-value" data-key="worldposition" data-placeholder="이 세계에서 이 캐릭터의 역할, 위치"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section full">
+      <div class="section-label">캐릭터 인터뷰</div>
+      <div class="qa-list" id="qa-list">
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">01.</span><span class="qa-q-text" data-key="q1">자기소개를 해주세요.</span></div>
+          <div class="qa-a" data-key="a1" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">02.</span><span class="qa-q-text" data-key="q2">지금 가장 원하는 게 뭔가요?</span></div>
+          <div class="qa-a" data-key="a2" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">03.</span><span class="qa-q-text" data-key="q3">스스로 가장 자랑스러운 점은요?</span></div>
+          <div class="qa-a" data-key="a3" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">04.</span><span class="qa-q-text" data-key="q4">반대로 가장 부끄럽거나 감추고 싶은 점은요?</span></div>
+          <div class="qa-a" data-key="a4" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">05.</span><span class="qa-q-text" data-key="q5">누군가를 좋아하게 될 때 어떤 사람에게 끌리나요?</span></div>
+          <div class="qa-a" data-key="a5" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">06.</span><span class="qa-q-text" data-key="q6">지금까지 살면서 가장 힘들었던 순간은?</span></div>
+          <div class="qa-a" data-key="a6" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q"><span class="qa-q-num">07.</span><span class="qa-q-text" data-key="q7">마지막으로 하고 싶은 말이 있다면?</span></div>
+          <div class="qa-a" data-key="a7" data-placeholder="백승아의 대답을 입력하세요"></div>
+        </div>
+      </div>
+      <button class="add-qa-btn" onclick="addQA()">+ 질문 추가</button>
+    </div>
+
+    <div class="section full">
+      <div class="section-label">작가 메모</div>
+      <div class="field">
+        <div class="field-label">롤플레이 노트 / 참고사항</div>
+        <div class="field-value" data-key="memo" data-placeholder="RP할 때 유의할 점, 설정 메모, 자유롭게 기록" style="min-height:80px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const VIEWER_PW = 'bsa2026';
+const ADMIN_PW  = '회사도방학이필요해';
+const STORAGE_KEY = 'bsa_data_v1';
+let isAdmin = false;
+let qaCount = 7;
+
+document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') tryUnlock(); });
+
+function tryUnlock() {
+  const val = document.getElementById('pw-input').value;
+  const err = document.getElementById('lock-error');
+  if (val === ADMIN_PW) { isAdmin=true; enterSite(); }
+  else if (val === VIEWER_PW) { isAdmin=false; enterSite(); }
+  else {
+    err.classList.add('show');
+    document.getElementById('pw-input').value='';
+    setTimeout(()=>err.classList.remove('show'), 2500);
+  }
+}
+
+function enterSite() {
+  document.getElementById('lock-screen').style.display='none';
+  const main = document.getElementById('main');
+  main.style.display='block';
+  setTimeout(()=>main.classList.add('visible'),10);
+  loadData();
+  if (isAdmin) {
+    document.body.classList.add('admin-mode');
+    document.getElementById('mode-badge').textContent='ADMIN';
+    document.getElementById('mode-badge').className='mode-badge admin';
+    document.getElementById('header-actions').innerHTML=`
+      <button class="action-btn" onclick="clearAll()">초기화</button>
+      <button class="action-btn save-btn" id="save-btn" onclick="saveData()">저장</button>
+    `;
+    enableEditing();
+  }
+}
+
+function enableEditing() {
+  document.querySelectorAll('.field-value[data-key], .qa-a[data-key], .qa-q-text[data-key]')
+    .forEach(el => el.contentEditable='true');
+}
+
+function addTag(id) {
+  const name = prompt('키워드를 입력하세요:');
+  if (!name||!name.trim()) return;
+  const wrap = document.getElementById(id);
+  const tag = document.createElement('span');
+  tag.className='tag'; tag.dataset.value=name.trim();
+  tag.innerHTML=`${name.trim()}<button class="tag-del" onclick="this.parentElement.remove();autoSave()">×</button>`;
+  wrap.insertBefore(tag, wrap.querySelector('.tag-add'));
+  autoSave();
+}
+
+function addQA() {
+  qaCount++;
+  const num = String(qaCount).padStart(2,'0');
+  const item = document.createElement('div');
+  item.className='qa-item';
+  item.innerHTML=`
+    <div class="qa-q"><span class="qa-q-num">${num}.</span><span class="qa-q-text" data-key="q${qaCount}" contenteditable="true">질문을 입력하세요</span></div>
+    <div class="qa-a" data-key="a${qaCount}" contenteditable="true" data-placeholder="백승아의 대답을 입력하세요"></div>`;
+  document.getElementById('qa-list').appendChild(item);
+  item.querySelector('.qa-q-text').focus();
+}
+
+function gatherData() {
+  const d = {};
+  document.querySelectorAll('[data-key]').forEach(el=>{ d[el.dataset.key]=el.innerText.trim(); });
+  const tags=[];
+  document.querySelectorAll('#tags-personality .tag').forEach(t=>tags.push(t.dataset.value));
+  d['__tags']=tags; d['__qac']=qaCount;
+  return d;
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(gatherData()));
+  const btn=document.getElementById('save-btn');
+  if(btn){ btn.textContent='저장됨 ✓'; btn.classList.add('saved'); setTimeout(()=>{btn.textContent='저장';btn.classList.remove('saved');},2000); }
+  showToast('저장 완료');
+}
+
+function autoSave() {
+  if(!isAdmin) return;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(gatherData()));
+}
+
+function loadData() {
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(!raw) return;
+  try {
+    const d=JSON.parse(raw);
+    const saved=d['__qac']||7;
+    while(qaCount<saved){
+      qaCount++;
+      const num=String(qaCount).padStart(2,'0');
+      const item=document.createElement('div');
+      item.className='qa-item';
+      item.innerHTML=`<div class="qa-q"><span class="qa-q-num">${num}.</span><span class="qa-q-text" data-key="q${qaCount}"></span></div><div class="qa-a" data-key="a${qaCount}" data-placeholder="백승아의 대답을 입력하세요"></div>`;
+      document.getElementById('qa-list').appendChild(item);
+    }
+    document.querySelectorAll('[data-key]').forEach(el=>{ if(d[el.dataset.key]!==undefined) el.innerText=d[el.dataset.key]; });
+    const tags=d['__tags']||[];
+    const wrap=document.getElementById('tags-personality');
+    wrap.querySelectorAll('.tag').forEach(t=>t.remove());
+    const btn=wrap.querySelector('.tag-add');
+    tags.forEach(t=>{
+      const tag=document.createElement('span');
+      tag.className='tag'; tag.dataset.value=t;
+      tag.innerHTML=`${t}<button class="tag-del" onclick="this.parentElement.remove();autoSave()">×</button>`;
+      wrap.insertBefore(tag,btn);
+    });
+    if(isAdmin) enableEditing();
+  } catch(e){}
+}
+
+function clearAll() {
+  if(!confirm('모든 내용을 초기화할까요?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+document.addEventListener('input', e=>{ if(e.target.dataset.key) autoSave(); });
+</script>
+</body>
+</html>
