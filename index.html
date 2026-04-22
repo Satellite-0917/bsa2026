@@ -34,7 +34,11 @@
   font-size: 15px;
   color: var(--text-secondary);
   text-decoration: none;
-  display: block;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   padding: 6px 10px;
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -49,6 +53,17 @@
   color: var(--text-primary);
   font-weight: 600;
   background: var(--surface-3);
+}
+
+.toc-no {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  opacity: 0.85;
+
+  width: 22px;
+  text-align: right;
+  flex-shrink: 0;
 }
     /* ═══════════════════════════════════════════════
        TOKENS
