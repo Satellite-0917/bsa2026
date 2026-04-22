@@ -3,65 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>지원서 열람 시스템</title>
+  <title>〈연애 남매〉 출연자 서면지 — 백승아</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── CSS VARIABLES ─────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════════ */
     :root {
-      --bg: #f5f3ee;
-      --bg-secondary: #eeece6;
-      --surface: #ffffff;
-      --surface-2: #f9f8f5;
-      --border: #d6d2c8;
-      --border-strong: #b0aa9e;
-      --text-primary: #1a1814;
-      --text-secondary: #5a5750;
-      --text-muted: #8c887f;
-      --accent: #8b2635;
-      --accent-light: #b84455;
-      --accent-bg: #fdf2f3;
-      --stamp-color: #8b2635;
-      --sidebar-bg: #f0ede6;
-      --sidebar-border: #d6d2c8;
-      --toc-active: #8b2635;
-      --overlay-bg: rgba(26, 24, 20, 0.55);
-      --modal-bg: #ffffff;
-      --input-border: #c8c4bb;
-      --btn-disabled: #c8c4bb;
-      --shadow: 0 4px 24px rgba(0,0,0,0.10);
-      --shadow-lg: 0 12px 48px rgba(0,0,0,0.15);
+      --bg:            #f4f1ec;
+      --surface:       #ffffff;
+      --surface-2:     #f9f7f3;
+      --surface-3:     #f0ede6;
+      --border:        #dbd7ce;
+      --border-strong: #b5b0a5;
+      --text-primary:  #18160f;
+      --text-secondary:#56534c;
+      --text-muted:    #908c83;
+      --accent:        #8b2635;
+      --accent-dim:    #b84455;
+      --accent-bg:     #fdf1f3;
+      --accent-border: #e8bfc6;
+      --writer-bg:     #f5f0e8;
+      --writer-border: #d4cec3;
+      --writer-text:   #7a6e60;
+      --parent-bg:     #f7f5f0;
+      --photo-bg:      #e8e4dc;
+      --overlay-bg:    rgba(20,18,12,0.58);
+      --modal-bg:      #ffffff;
+      --shadow:        0 2px 16px rgba(0,0,0,0.09);
+      --shadow-lg:     0 16px 56px rgba(0,0,0,0.14);
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #141210;
-        --bg-secondary: #1c1a17;
-        --surface: #1e1c19;
-        --surface-2: #242220;
-        --border: #2e2c28;
-        --border-strong: #44413b;
-        --text-primary: #f0ede6;
-        --text-secondary: #a8a49b;
-        --text-muted: #6e6a62;
-        --accent: #d4556a;
-        --accent-light: #e0758a;
-        --accent-bg: #2a1a1d;
-        --stamp-color: #d4556a;
-        --sidebar-bg: #191714;
-        --sidebar-border: #2e2c28;
-        --toc-active: #d4556a;
-        --overlay-bg: rgba(10, 9, 7, 0.72);
-        --modal-bg: #1e1c19;
-        --input-border: #3a3830;
-        --btn-disabled: #3a3830;
-        --shadow: 0 4px 24px rgba(0,0,0,0.35);
-        --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
+        --bg:            #111009;
+        --surface:       #1c1a15;
+        --surface-2:     #221f18;
+        --surface-3:     #191610;
+        --border:        #2c2920;
+        --border-strong: #413d34;
+        --text-primary:  #ede9df;
+        --text-secondary:#a09b90;
+        --text-muted:    #6a6560;
+        --accent:        #d4566b;
+        --accent-dim:    #e07585;
+        --accent-bg:     #2b1219;
+        --accent-border: #5c2030;
+        --writer-bg:     #1e1b14;
+        --writer-border: #35311f;
+        --writer-text:   #9e9484;
+        --parent-bg:     #1a1812;
+        --photo-bg:      #28251c;
+        --overlay-bg:    rgba(6,5,3,0.75);
+        --modal-bg:      #1c1a15;
+        --shadow:        0 2px 16px rgba(0,0,0,0.4);
+        --shadow-lg:     0 16px 56px rgba(0,0,0,0.55);
       }
     }
 
-    /* ─── RESET ─────────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -69,799 +72,800 @@
       background: var(--bg);
       color: var(--text-primary);
       min-height: 100vh;
-      transition: background 0.3s, color 0.3s;
+      line-height: 1.6;
     }
 
-    /* ─── LOCK OVERLAY ──────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       LOCK OVERLAY
+    ═══════════════════════════════════════════════ */
     #lock-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
       background: var(--overlay-bg);
-      backdrop-filter: blur(18px) saturate(0.8);
-      -webkit-backdrop-filter: blur(18px) saturate(0.8);
-      transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1);
+      backdrop-filter: blur(20px) saturate(0.7);
+      -webkit-backdrop-filter: blur(20px) saturate(0.7);
+      transition: opacity 0.5s ease;
     }
-    #lock-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #lock-overlay.hidden { opacity: 0; pointer-events: none; }
 
     .lock-modal {
       background: var(--modal-bg);
       border: 1px solid var(--border);
-      border-radius: 2px;
+      border-radius: 3px;
       padding: 48px 52px 44px;
       width: min(440px, 92vw);
       box-shadow: var(--shadow-lg);
-      position: relative;
-      animation: modalIn 0.45s cubic-bezier(0.22,1,0.36,1);
+      animation: floatIn 0.45s cubic-bezier(0.22,1,0.36,1);
     }
-    @keyframes modalIn {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to   { opacity: 1; transform: none; }
+    @keyframes floatIn {
+      from { opacity:0; transform:translateY(22px) scale(0.97); }
+      to   { opacity:1; transform:none; }
     }
-
-    .lock-modal::before {
-      content: '⬛ RESTRICTED';
+    .lock-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      color: var(--accent);
-      display: block;
-      margin-bottom: 28px;
+      font-size: 9px; letter-spacing: 0.28em;
+      color: var(--accent); margin-bottom: 24px;
     }
-
     .lock-modal h2 {
       font-family: 'Noto Serif KR', serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.7;
-      margin-bottom: 8px;
+      font-size: 17px; font-weight: 500;
+      line-height: 1.75; margin-bottom: 8px;
     }
-
-    .lock-modal p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 28px;
-    }
-
-    .lock-modal input[type="password"] {
-      width: 100%;
-      padding: 12px 16px;
+    .lock-modal p { font-size: 13px; color: var(--text-secondary); margin-bottom: 28px; }
+    .lock-modal input {
+      width: 100%; padding: 12px 15px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 14px;
-      letter-spacing: 0.1em;
+      font-size: 14px; letter-spacing: 0.1em;
       background: var(--surface-2);
-      border: 1px solid var(--input-border);
-      border-radius: 2px;
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 0.2s;
-      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px; color: var(--text-primary);
+      outline: none; transition: border-color 0.2s;
+      margin-bottom: 10px;
     }
-    .lock-modal input[type="password"]:focus {
-      border-color: var(--accent);
-    }
-    .lock-modal input[type="password"]::placeholder {
-      color: var(--text-muted);
-    }
-
+    .lock-modal input:focus { border-color: var(--accent); }
+    .lock-modal input::placeholder { color: var(--text-muted); }
     .lock-modal button {
-      width: 100%;
-      padding: 12px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: background 0.2s, opacity 0.2s;
+      width: 100%; padding: 12px;
+      background: var(--accent); color: #fff; border: none;
+      border-radius: 2px; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: background 0.2s, opacity 0.2s;
     }
-    .lock-modal button:disabled {
-      background: var(--btn-disabled);
-      cursor: not-allowed;
-    }
-    .lock-modal button:not(:disabled):hover {
-      background: var(--accent-light);
-    }
-
-    .lock-error {
+    .lock-modal button:disabled { background: var(--border-strong); cursor: not-allowed; }
+    .lock-modal button:not(:disabled):hover { background: var(--accent-dim); }
+    .lock-err {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      margin-top: 8px;
-      height: 16px;
-      transition: opacity 0.2s;
+      font-size: 11px; color: var(--accent);
+      margin-top: 9px; height: 14px;
     }
-    .lock-error.hidden { opacity: 0; }
+    .lock-err.hidden { opacity: 0; }
 
-    /* ─── MAIN LAYOUT ───────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       APP SHELL
+    ═══════════════════════════════════════════════ */
     #app {
-      display: flex;
-      min-height: 100vh;
-      opacity: 0;
-      transition: opacity 0.6s 0.2s;
+      display: flex; min-height: 100vh;
+      opacity: 0; transition: opacity 0.5s 0.15s;
     }
     #app.visible { opacity: 1; }
 
-    /* ─── SIDEBAR ───────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       SIDEBAR
+    ═══════════════════════════════════════════════ */
     #sidebar {
-      width: 240px;
-      min-width: 240px;
-      background: var(--sidebar-bg);
-      border-right: 1px solid var(--sidebar-border);
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      width: 220px; min-width: 220px; flex-shrink: 0;
+      background: var(--surface-3);
+      border-right: 1px solid var(--border);
+      position: sticky; top: 0; height: 100vh;
       overflow-y: auto;
-      padding: 40px 0;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
+      display: flex; flex-direction: column;
+      padding: 36px 0 28px;
     }
+    .sb-header { padding: 0 24px 22px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    .sb-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.22em; color: var(--accent); margin-bottom: 7px; }
+    .sb-title { font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 500; line-height: 1.55; }
+    .sb-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
-    .sidebar-header {
-      padding: 0 28px 24px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
-    }
-    .sidebar-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      color: var(--accent);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-    .sidebar-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-primary);
-      line-height: 1.5;
-    }
-    .sidebar-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .toc-list {
-      list-style: none;
-      padding: 0 16px;
-      flex: 1;
-    }
-    .toc-item {
-      margin-bottom: 2px;
-    }
-    .toc-link {
-      display: block;
-      padding: 7px 12px;
-      font-size: 12.5px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: 2px;
-      transition: color 0.2s, background 0.2s;
-      line-height: 1.5;
+    .toc { list-style: none; padding: 0 14px; flex: 1; }
+    .toc li { margin-bottom: 1px; }
+    .toc a {
+      display: block; padding: 7px 10px;
+      font-size: 12px; color: var(--text-secondary);
+      text-decoration: none; border-radius: 2px;
       border-left: 2px solid transparent;
+      transition: color 0.18s, background 0.18s;
     }
-    .toc-link:hover {
-      color: var(--text-primary);
-      background: var(--surface);
-    }
-    .toc-link.active {
-      color: var(--toc-active);
-      background: var(--accent-bg);
-      border-left-color: var(--accent);
-      font-weight: 500;
-    }
-    .toc-link.sub {
-      font-size: 11.5px;
-      padding-left: 24px;
-      color: var(--text-muted);
-    }
+    .toc a:hover { color: var(--text-primary); background: var(--surface); }
+    .toc a.active { color: var(--accent); background: var(--accent-bg); border-left-color: var(--accent); font-weight: 500; }
 
-    .sidebar-footer {
-      padding: 16px 28px 0;
-      border-top: 1px solid var(--border);
-      margin-top: auto;
-    }
+    .sb-footer { padding: 16px 24px 0; border-top: 1px solid var(--border); margin-top: auto; }
     #mode-badge {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9.5px;
-      letter-spacing: 0.15em;
-      padding: 4px 10px;
-      border-radius: 2px;
-      display: inline-block;
+      font-size: 9px; letter-spacing: 0.15em;
+      padding: 3px 9px; border-radius: 2px; display: inline-block;
     }
-    #mode-badge.viewer {
-      background: var(--surface-2);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-    #mode-badge.admin {
-      background: var(--accent-bg);
-      color: var(--accent);
-      border: 1px solid var(--accent);
-    }
+    #mode-badge.viewer { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+    #mode-badge.admin  { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-border); }
 
-    /* ─── CONTENT ───────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       MAIN CONTENT
+    ═══════════════════════════════════════════════ */
     #content {
-      flex: 1;
-      max-width: 800px;
-      padding: 56px 64px 120px;
-      min-width: 0;
+      flex: 1; min-width: 0;
+      padding: 52px 72px 120px 64px;
+      max-width: 960px;
     }
 
-    /* ─── DOCUMENT HEADER ───────────────────────────────────── */
-    .doc-header {
-      margin-bottom: 52px;
-      position: relative;
+    /* ═══════════════════════════════════════════════
+       DOCUMENT HEADER  (with photo slot)
+    ═══════════════════════════════════════════════ */
+    .doc-top {
+      margin-bottom: 44px;
     }
     .doc-stamp {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.28em;
-      color: var(--stamp-color);
-      border: 1.5px solid var(--stamp-color);
-      display: inline-block;
-      padding: 3px 10px;
-      margin-bottom: 20px;
-      opacity: 0.75;
-      text-transform: uppercase;
+      font-size: 9px; letter-spacing: 0.26em; color: var(--accent);
+      border: 1.5px solid var(--accent);
+      display: inline-block; padding: 3px 10px;
+      margin-bottom: 16px; opacity: 0.75;
+    }
+    .doc-program {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.14em;
+      color: var(--text-muted); margin-bottom: 8px;
     }
     .doc-main-title {
       font-family: 'Noto Serif KR', serif;
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text-primary);
-      line-height: 1.35;
-      margin-bottom: 10px;
+      font-size: 26px; font-weight: 600;
+      line-height: 1.35; margin-bottom: 10px;
     }
-    .doc-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
+    .doc-notice {
+      font-size: 12px; color: var(--text-muted);
+      line-height: 1.7; padding: 10px 14px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 2px; margin-top: 14px;
     }
-    .doc-divider {
-      height: 1px;
-      background: var(--border);
-      margin-top: 28px;
-    }
-    .doc-divider::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 2px;
-      background: var(--accent);
-      margin-top: -1px;
-    }
+    .doc-divider { height: 1px; background: var(--border); margin: 28px 0 0; }
+    .doc-divider::after { content:''; display:block; width:56px; height:2px; background:var(--accent); margin-top:-1px; }
 
-    /* ─── SECTIONS ──────────────────────────────────────────── */
-    .section {
-      margin-bottom: 52px;
-      scroll-margin-top: 32px;
+    /* Info + Photo 나란히 */
+    .info-with-photo {
+      display: flex; gap: 0; align-items: stretch;
+      border: 1px solid var(--border); border-radius: 2px; overflow: hidden;
     }
-    .section-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* info-grid는 자체 border 제거 — 바깥 wrapper가 처리 */
+    .info-with-photo .info-grid {
+      flex: 1; border: none; border-radius: 0;
     }
-    .section-num {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-    }
+    /* 첫 번째 행 상단 테두리 제거 방지 — grid 내부 첫 셀 */
+    .info-with-photo .info-grid .ig-label:first-child,
+    .info-with-photo .info-grid .ig-value:nth-child(2) { }
 
-    /* ─── INFO GRID ─────────────────────────────────────────── */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .info-row {
-      display: contents;
-    }
-    .info-label {
-      background: var(--surface-2);
+    /* Photo slot — 표 전체 높이에 맞춤 */
+    .photo-slot {
+      width: 120px; flex-shrink: 0;
       border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 11px 16px;
-      font-size: 11.5px;
-      color: var(--text-muted);
-      font-weight: 500;
-      display: flex;
-      align-items: center;
+      background: var(--photo-bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; cursor: pointer;
+      transition: border-color 0.2s;
+      overflow: hidden; position: relative;
+      /* 높이는 부모 stretch로 자동 결정 */
     }
-    .info-value {
-      border-bottom: 1px solid var(--border);
-      padding: 11px 16px;
-      font-size: 13px;
-      color: var(--text-primary);
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      min-height: 42px;
-    }
-    .info-row:last-child .info-label,
-    .info-row:last-child .info-value {
-      border-bottom: none;
-    }
+    .photo-slot:hover { border-color: var(--accent); }
+    .photo-slot img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .photo-slot-icon { font-size: 20px; color: var(--text-muted); }
+    .photo-slot-label { font-size: 9.5px; color: var(--text-muted); letter-spacing: 0.05em; text-align:center; line-height:1.5; }
+    #photo-input { display: none; }
+    body:not(.admin-mode) .photo-slot { cursor: default; pointer-events: none; }
+    body:not(.admin-mode) .photo-slot-icon,
+    body:not(.admin-mode) .photo-slot-label { display: none; }
 
-    /* ─── Q&A ITEMS ─────────────────────────────────────────── */
-    .qa-item {
-      margin-bottom: 32px;
-    }
-    .qa-item:last-child { margin-bottom: 0; }
-    .qa-question {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-      line-height: 1.6;
-      display: flex;
-      gap: 8px;
-    }
-    .qa-question::before {
-      content: 'Q.';
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
-    .qa-answer {
-      font-size: 14px;
-      color: var(--text-primary);
-      line-height: 1.85;
-      padding: 16px 20px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      min-height: 52px;
-      white-space: pre-wrap;
-    }
-    .qa-answer:empty::before {
-      content: attr(data-placeholder);
-      color: var(--text-muted);
-      font-style: italic;
-      font-size: 13px;
-    }
-
-    /* ─── EDITABLE (ADMIN) ──────────────────────────────────── */
-    [contenteditable="true"] {
-      outline: none;
-      cursor: text;
-    }
-    [contenteditable="true"]:hover {
-      background: var(--accent-bg) !important;
-      border-color: var(--accent) !important;
-    }
-    [contenteditable="true"]:focus {
-      background: var(--accent-bg) !important;
-      border-color: var(--accent) !important;
-      box-shadow: 0 0 0 3px rgba(139,38,53,0.10);
-    }
+    /* ═══════════════════════════════════════════════
+       ADMIN HINT
+    ═══════════════════════════════════════════════ */
     .admin-hint {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      margin-bottom: 18px;
+      font-size: 10px; letter-spacing: 0.1em; color: var(--accent);
       padding: 8px 14px;
-      background: var(--accent-bg);
-      border: 1px solid var(--accent);
-      border-radius: 2px;
-      display: none;
+      background: var(--accent-bg); border: 1px solid var(--accent-border);
+      border-radius: 2px; margin-bottom: 20px; display: none;
     }
     body.admin-mode .admin-hint { display: block; }
 
-    /* ─── SAVE BUTTON ───────────────────────────────────────── */
-    #save-btn {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      padding: 12px 24px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      display: none;
-      transition: background 0.2s, transform 0.15s;
-      z-index: 100;
+    /* ═══════════════════════════════════════════════
+       SECTION
+    ═══════════════════════════════════════════════ */
+    .section { margin-bottom: 52px; scroll-margin-top: 28px; }
+    .section-heading {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-primary);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
     }
-    #save-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .sec-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px; letter-spacing: 0.12em;
+      color: var(--accent); opacity: 0.8;
+    }
+
+    /* ═══════════════════════════════════════════════
+       INFO GRID (기본 인적사항)
+    ═══════════════════════════════════════════════ */
+    .info-grid {
+      display: grid; grid-template-columns: 110px 1fr;
+      border: 1px solid var(--border); border-radius: 2px; overflow: hidden;
+    }
+    .ig-label {
+      background: var(--surface-2); border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px; font-size: 11.5px; color: var(--text-muted); font-weight: 500;
+      display: flex; align-items: center;
+    }
+    .ig-value {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 10px 16px; font-size: 13px;
+      display: flex; align-items: center; min-height: 40px;
+    }
+    .ig-label:last-of-type, .ig-value:last-of-type { border-bottom: none; }
+    .info-grid > :nth-last-child(-n+2) { border-bottom: none; }
+
+    /* ═══════════════════════════════════════════════
+       Q&A BLOCK
+    ═══════════════════════════════════════════════ */
+    .qa-block { margin-bottom: 28px; }
+    .qa-block:last-child { margin-bottom: 0; }
+
+    .qa-q {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-secondary); margin-bottom: 8px;
+      line-height: 1.65; display: flex; gap: 8px;
+    }
+    .qa-q::before {
+      content: 'Q.'; font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px; color: var(--accent);
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    .qa-a {
+      font-size: 13.5px; color: var(--text-primary);
+      line-height: 1.9; padding: 14px 18px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 2px; min-height: 48px; white-space: pre-wrap;
+    }
+    .qa-a:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted); font-style: italic; font-size: 12.5px;
+    }
+
+    /* Writer follow-up */
+    .writer-block {
+      margin-top: 10px; margin-left: 20px;
+    }
+    .writer-q {
+      font-size: 12px; color: var(--writer-text);
+      margin-bottom: 6px; display: flex; gap: 7px;
+      padding: 8px 12px;
+      background: var(--writer-bg); border: 1px solid var(--writer-border);
+      border-radius: 2px 2px 0 0; border-bottom: none;
+      font-style: italic;
+    }
+    .writer-q::before {
+      content: '↳'; font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--text-muted); flex-shrink: 0;
+    }
+    .writer-a {
+      font-size: 13px; color: var(--text-primary);
+      line-height: 1.85; padding: 12px 16px;
+      background: var(--surface); border: 1px solid var(--writer-border);
+      border-radius: 0 0 2px 2px; min-height: 42px; white-space: pre-wrap;
+    }
+    .writer-a:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted); font-style: italic; font-size: 12px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       PARENT INTERVIEW SECTION
+    ═══════════════════════════════════════════════ */
+    .parent-notice {
+      font-size: 12px; color: var(--text-muted); line-height: 1.7;
+      padding: 10px 14px; background: var(--surface-2);
+      border: 1px solid var(--border); border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    /* 부/모 답변 — writer-block과 동일 패턴, 라벨만 다름 */
+    .parent-resp-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px; letter-spacing: 0.14em; color: var(--text-muted);
+      padding: 6px 14px; background: var(--surface-2);
+      border: 1px solid var(--border); border-bottom: none;
+      border-radius: 2px 2px 0 0; margin-top: 8px;
+    }
+    .parent-resp-a {
+      font-size: 13px; color: var(--text-primary);
+      line-height: 1.85; padding: 12px 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 0 0 2px 2px; min-height: 44px; white-space: pre-wrap;
+    }
+    .parent-resp-a:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted); font-style: italic; font-size: 12px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       EDITABLE STYLES (admin)
+    ═══════════════════════════════════════════════ */
+    [contenteditable="true"] { outline: none; cursor: text; }
+    [contenteditable="true"]:hover { background: var(--accent-bg) !important; border-color: var(--accent-border) !important; }
+    [contenteditable="true"]:focus { background: var(--accent-bg) !important; border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(139,38,53,0.08); }
+
+    /* ═══════════════════════════════════════════════
+       SAVE BTN & TOAST
+    ═══════════════════════════════════════════════ */
+    #save-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      padding: 11px 22px; background: var(--accent); color: #fff;
+      border: none; border-radius: 2px;
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      box-shadow: var(--shadow); display: none; z-index: 200;
+      transition: background 0.2s, transform 0.15s;
+    }
+    #save-btn:hover { background: var(--accent-dim); transform: translateY(-1px); }
     body.admin-mode #save-btn { display: block; }
 
     #save-toast {
-      position: fixed;
-      bottom: 80px;
-      right: 32px;
-      padding: 10px 18px;
-      background: var(--text-primary);
-      color: var(--bg);
-      border-radius: 2px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.25s, transform 0.25s;
-      pointer-events: none;
-      z-index: 100;
+      position: fixed; bottom: 74px; right: 28px;
+      padding: 9px 16px; background: var(--text-primary); color: var(--bg);
+      border-radius: 2px; font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px; letter-spacing: 0.1em;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.22s, transform 0.22s; pointer-events: none; z-index: 200;
     }
     #save-toast.show { opacity: 1; transform: none; }
 
-    /* ─── SCROLLBAR ─────────────────────────────────────────── */
+    /* ═══════════════════════════════════════════════
+       SCROLLBAR
+    ═══════════════════════════════════════════════ */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────── */
-    @media (max-width: 768px) {
-      #sidebar {
-        display: none;
-      }
-      #content {
-        padding: 36px 28px 80px;
-      }
-      .info-grid {
-        grid-template-columns: 90px 1fr;
-      }
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      #sidebar { display: none; }
+      #content { padding: 32px 24px 80px; }
+      .info-with-photo { flex-direction: column; }
+      .photo-slot { width: 100%; height: 160px; border-right: none; border-bottom: 1px solid var(--border); }
+      .parent-answers { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
-       LOCK OVERLAY
-  ══════════════════════════════════════════════════════════ -->
-  <div id="lock-overlay">
-    <div class="lock-modal">
-      <h2>출연자 '백승아'의 기록을<br/>열람하시겠습니까?</h2>
-      <p>기록을 열람하려면 비밀번호를 입력하세요.</p>
-      <input
-        type="password"
-        id="pw-input"
-        placeholder="비밀번호 입력"
-        autocomplete="off"
-        autofocus
-      />
-      <button id="pw-submit" disabled>열람하기</button>
-      <div class="lock-error hidden" id="pw-error">— 비밀번호가 올바르지 않습니다</div>
+<!-- ════════════════════════════════════════════
+     LOCK OVERLAY
+════════════════════════════════════════════ -->
+<div id="lock-overlay">
+  <div class="lock-modal">
+    <div class="lock-eyebrow">▪ RESTRICTED · INTERNAL USE ONLY</div>
+    <h2>출연자 '백승아'의 기록을<br/>열람하시겠습니까?</h2>
+    <p>기록을 열람하려면 비밀번호를 입력하세요.</p>
+    <input type="password" id="pw-input" placeholder="비밀번호 입력" autocomplete="off" autofocus />
+    <button id="pw-submit" disabled>열람하기</button>
+    <div class="lock-err hidden" id="pw-err">— 비밀번호가 올바르지 않습니다</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     APP
+════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sb-header">
+      <div class="sb-eyebrow">〈연애 남매〉 2026</div>
+      <div class="sb-title">백승아<br/>출연자 서면지</div>
+      <div class="sb-sub">기본 프로필</div>
     </div>
-  </div>
+    <ul class="toc" id="toc-list">
+      <li><a href="#sec-info" class="toc-link">기본 인적사항</a></li>
+      <li><a href="#sec-self" class="toc-link">'백승아'는 어떤 사람?</a></li>
+      <li><a href="#sec-family" class="toc-link">나의 가족은...</a></li>
+      <li><a href="#sec-love" class="toc-link">나에게 있어 연애란?</a></li>
+      <li><a href="#sec-parents" class="toc-link">부모님 인터뷰 영상</a></li>
+    </ul>
+    <div class="sb-footer">
+      <span id="mode-badge" class="viewer">VIEWER</span>
+    </div>
+  </nav>
 
-  <!-- ═══════════════════════════════════════════════════════
-       MAIN APP
-  ══════════════════════════════════════════════════════════ -->
-  <div id="app">
+  <!-- CONTENT -->
+  <main id="content">
 
-    <!-- SIDEBAR -->
-    <nav id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-label">BSA — 2026</div>
-        <div class="sidebar-title">백승아<br/>지원서</div>
-        <div class="sidebar-sub">연애 프로그램 출연 지원</div>
-      </div>
-
-      <ul class="toc-list" id="toc">
-        <li class="toc-item">
-          <a class="toc-link" href="#sec-basic">기본 인적사항</a>
-        </li>
-        <li class="toc-item">
-          <a class="toc-link" href="#sec-intro">자기소개</a>
-        </li>
-        <li class="toc-item">
-          <a class="toc-link" href="#sec-love">연애관</a>
-        </li>
-        <li class="toc-item">
-          <a class="toc-link" href="#sec-type">이상형</a>
-        </li>
-        <li class="toc-item">
-          <a class="toc-link" href="#sec-secret">비공개 문항</a>
-        </li>
-      </ul>
-
-      <div class="sidebar-footer">
-        <span id="mode-badge" class="viewer">VIEWER</span>
-      </div>
-    </nav>
-
-    <!-- CONTENT -->
-    <main id="content">
-
-      <!-- Document Header -->
-      <div class="doc-header">
-        <div class="doc-stamp">Confidential · Internal Use Only</div>
-        <h1 class="doc-main-title">연애 프로그램 출연 지원서</h1>
-        <p class="doc-subtitle">
-          본 문서는 내부 열람 전용입니다. 무단 배포를 금합니다.<br/>
-          <span id="header-subtitle" style="color:var(--text-muted)">백승아 / 2026 시즌 지원</span>
-        </p>
+    <!-- Doc Top -->
+    <div class="doc-top">
+      <div class="doc-stamp">Confidential · Internal Use Only</div>
+        <div class="doc-program">〈연애 남매〉 출연자 기본 프로필 서면지</div>
+        <h1 class="doc-main-title">백승아</h1>
+        <div class="doc-notice">작성 전 안내: 편하게 작성해주세요. 중간에 담당 작가가 추가 질문을 드릴 수 있습니다.</div>
         <div class="doc-divider"></div>
+    </div>
+      <input type="file" id="photo-input" accept="image/*" />
+
+    <div class="admin-hint">✎ 관리자 모드 — 항목 클릭 후 직접 편집, 완료 시 [저장] 버튼을 눌러주세요.</div>
+
+    <!-- ──────────────────────────────────
+         SECTION 0: 기본 인적사항
+    ────────────────────────────────── -->
+    <section class="section" id="sec-info">
+      <div class="section-heading">
+        <span class="sec-tag">00</span> 기본 인적사항
+      </div>
+      <div class="info-with-photo">
+        <!-- 사진 슬롯 (표 왼쪽) -->
+        <div class="photo-slot" id="photo-slot" title="클릭해서 사진 업로드">
+          <div class="photo-slot-icon">📷</div>
+          <div class="photo-slot-label">사진 업로드</div>
+        </div>
+        <!-- 인적사항 표 -->
+        <div class="info-grid">
+        <div class="ig-label">이름</div>
+        <div class="ig-value" id="f-name">백승아</div>
+        <div class="ig-label">나이 / 생년월일</div>
+        <div class="ig-value" id="f-age"></div>
+        <div class="ig-label">직업</div>
+        <div class="ig-value" id="f-job"></div>
+        <div class="ig-label">거주지</div>
+        <div class="ig-value" id="f-location"></div>
+        <div class="ig-label">키 / 체중</div>
+        <div class="ig-value" id="f-body"></div>
+        <div class="ig-label">MBTI</div>
+        <div class="ig-value" id="f-mbti"></div>
+        <div class="ig-label">가족 관계</div>
+        <div class="ig-value" id="f-family"></div>
+      </div><!-- /info-grid -->
+      </div><!-- /info-with-photo -->
+    </section>
+
+    <!-- ──────────────────────────────────
+         SECTION 1: '백승아'는 어떤 사람?
+    ────────────────────────────────── -->
+    <section class="section" id="sec-self">
+      <div class="section-heading">
+        <span class="sec-tag">01</span> '백승아'는 어떤 사람?
       </div>
 
-      <div class="admin-hint">✎ 관리자 모드 — 항목을 클릭하여 직접 편집할 수 있습니다. 완료 후 [저장] 버튼을 누르세요.</div>
+      <div class="qa-block">
+        <div class="qa-q" id="qq-self-1">간단한 자기소개 부탁드립니다.</div>
+        <div class="qa-a" id="qa-self-1" data-placeholder="내용을 입력해주세요."></div>
+      </div>
 
-      <!-- SECTION 1: 기본 인적사항 -->
-      <section class="section" id="sec-basic">
-        <h2 class="section-title">
-          <span class="section-num">01</span>
-          기본 인적사항
-        </h2>
-        <div class="info-grid">
-          <div class="info-row">
-            <div class="info-label">이름</div>
-            <div class="info-value" id="field-name">백승아</div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">나이</div>
-            <div class="info-value" id="field-age"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">직업</div>
-            <div class="info-value" id="field-job"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">거주지</div>
-            <div class="info-value" id="field-location"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">키 / 체중</div>
-            <div class="info-value" id="field-body"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">MBTI</div>
-            <div class="info-value" id="field-mbti"></div>
-          </div>
+      <div class="qa-block">
+        <div class="qa-q" id="qq-self-2">현재 직업과 하시는 일을 설명해주신다면?</div>
+        <div class="qa-a" id="qa-self-2" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────
+         SECTION 2: 나의 가족은...
+    ────────────────────────────────── -->
+    <section class="section" id="sec-family">
+      <div class="section-heading">
+        <span class="sec-tag">02</span> 나의 가족은...
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-1">가족 관계를 소개해주세요.</div>
+        <div class="qa-a" id="qa-fam-1" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-2">어릴 때 부모님은 어떤 분들이셨나요? 양육 방식이 엄격한 편이었나요?</div>
+        <div class="qa-a" id="qa-fam-2" data-placeholder="내용을 입력해주세요."></div>
+        <div class="writer-block">
+          <div class="writer-q" id="qq-fam-2w">작가: 그게 본인 성격에 영향을 준 것 같으세요?</div>
+          <div class="writer-a" id="qa-fam-2w" data-placeholder="..."></div>
         </div>
-      </section>
+      </div>
 
-      <!-- SECTION 2: 자기소개 -->
-      <section class="section" id="sec-intro">
-        <h2 class="section-title">
-          <span class="section-num">02</span>
-          자기소개
-        </h2>
-        <div class="qa-item">
-          <div class="qa-question" id="q-intro-1">자신을 한 문장으로 소개해주세요.</div>
-          <div class="qa-answer" id="a-intro-1" data-placeholder="내용을 입력해주세요."></div>
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-3">부모님과의 관계는 현재 어떤 편인가요?</div>
+        <div class="qa-a" id="qa-fam-3" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-4">남동생과는 어떤 사이예요?</div>
+        <div class="qa-a" id="qa-fam-4" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-5">본인이랑 남동생이 닮았다고 생각하는 부분이 있나요? 외형이든 내면이든요.</div>
+        <div class="qa-a" id="qa-fam-5" data-placeholder="내용을 입력해주세요."></div>
+        <div class="writer-block">
+          <div class="writer-q" id="qq-fam-5w">작가: 반대로 가장 다르다고 느끼는 부분은요?</div>
+          <div class="writer-a" id="qa-fam-5w" data-placeholder="..."></div>
         </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-intro-2">주변에서 자신을 어떻게 보는 것 같나요?</div>
-          <div class="qa-answer" id="a-intro-2" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-6">어릴 때 남동생과 기억나는 에피소드가 있다면요? 몇 살 때 일인지도 같이 말씀해주세요.</div>
+        <div class="qa-a" id="qa-fam-6" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-fam-7">이번 프로그램에서 남동생이 인기가 많아진다면 어떨 것 같으세요?</div>
+        <div class="qa-a" id="qa-fam-7" data-placeholder="내용을 입력해주세요."></div>
+        <div class="writer-block">
+          <div class="writer-q" id="qq-fam-7w">작가: 반대로 반응이 별로라면요?</div>
+          <div class="writer-a" id="qa-fam-7w" data-placeholder="..."></div>
         </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-intro-3">요즘 가장 좋아하는 것이 있다면?</div>
-          <div class="qa-answer" id="a-intro-3" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+    </section>
+
+    <!-- ──────────────────────────────────
+         SECTION 3: 나에게 있어 연애란?
+    ────────────────────────────────── -->
+    <section class="section" id="sec-love">
+      <div class="section-heading">
+        <span class="sec-tag">03</span> 나에게 있어 연애란?
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-love-1">본인이 생각하는 이상형은요?</div>
+        <div class="qa-a" id="qa-love-1" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q" id="qq-love-2">연애할 때 본인은 어떤 스타일인가요?</div>
+        <div class="qa-a" id="qa-love-2" data-placeholder="내용을 입력해주세요."></div>
+        <div class="writer-block">
+          <div class="writer-q" id="qq-love-2w">작가: 챙겨주는 편이에요, 챙김받는 편이에요?</div>
+          <div class="writer-a" id="qa-love-2w" data-placeholder="..."></div>
         </div>
-      </section>
+      </div>
 
-      <!-- SECTION 3: 연애관 -->
-      <section class="section" id="sec-love">
-        <h2 class="section-title">
-          <span class="section-num">03</span>
-          연애관
-        </h2>
-        <div class="qa-item">
-          <div class="qa-question" id="q-love-1">연애할 때 본인이 어떤 사람인가요?</div>
-          <div class="qa-answer" id="a-love-1" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-love-2">가장 최근 연애가 끝난 이유는 무엇인가요?</div>
-          <div class="qa-answer" id="a-love-2" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-love-3">연애에서 가장 중요하게 생각하는 것은?</div>
-          <div class="qa-answer" id="a-love-3" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-      </section>
+      <div class="qa-block">
+        <div class="qa-q" id="qq-love-3">프로그램 출연 사실을 가족들은 알고 있나요?</div>
+        <div class="qa-a" id="qa-love-3" data-placeholder="내용을 입력해주세요."></div>
+      </div>
 
-      <!-- SECTION 4: 이상형 -->
-      <section class="section" id="sec-type">
-        <h2 class="section-title">
-          <span class="section-num">04</span>
-          이상형
-        </h2>
-        <div class="qa-item">
-          <div class="qa-question" id="q-type-1">외적으로 끌리는 스타일이 있다면?</div>
-          <div class="qa-answer" id="a-type-1" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-type-2">성격적으로 끌리는 사람의 특징은?</div>
-          <div class="qa-answer" id="a-type-2" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-type-3">절대 만나지 못할 유형이 있다면?</div>
-          <div class="qa-answer" id="a-type-3" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-      </section>
+      <div class="qa-block">
+        <div class="qa-q" id="qq-love-4">마지막으로 이 프로그램에 기대하는 게 있다면?</div>
+        <div class="qa-a" id="qa-love-4" data-placeholder="내용을 입력해주세요."></div>
+      </div>
+    </section>
 
-      <!-- SECTION 5: 비공개 문항 -->
-      <section class="section" id="sec-secret">
-        <h2 class="section-title">
-          <span class="section-num">05</span>
-          비공개 문항
-        </h2>
-        <div class="qa-item">
-          <div class="qa-question" id="q-secret-1">지원자 본인만 알고 있는 숨겨진 모습이 있다면?</div>
-          <div class="qa-answer" id="a-secret-1" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-secret-2">프로그램 참여 후 기대하는 것이 있다면?</div>
-          <div class="qa-answer" id="a-secret-2" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-question" id="q-secret-3">제작진에게 전하고 싶은 말이 있다면?</div>
-          <div class="qa-answer" id="a-secret-3" data-placeholder="내용을 입력해주세요."></div>
-        </div>
-      </section>
+    <!-- ──────────────────────────────────
+         SECTION 4: 부모님 인터뷰 영상
+    ────────────────────────────────── -->
+    <section class="section" id="sec-parents">
+      <div class="section-heading">
+        <span class="sec-tag">04</span> 부모님 인터뷰 영상 📹
+      </div>
 
-    </main>
-  </div>
+      <div class="parent-notice">
+        승아의 부모님께 따로 촬영을 요청했습니다. 아래는 촬영 질문지 및 답변 기록란입니다.
+      </div>
 
-  <!-- SAVE BUTTON & TOAST -->
-  <button id="save-btn">저장하기</button>
-  <div id="save-toast">SAVED ✓</div>
+      <!-- Q1 -->
+      <div class="qa-block">
+        <div class="qa-q" id="pq-1">자녀분이 이번에 연애 프로그램에 출연하게 됐는데요, 알고 계셨나요?</div>
+        <div class="parent-resp-label">부</div>
+        <div class="parent-resp-a" id="pa-1f" data-placeholder="답변을 입력해주세요."></div>
+        <div class="parent-resp-label" style="margin-top:6px">모</div>
+        <div class="parent-resp-a" id="pa-1m" data-placeholder="답변을 입력해주세요."></div>
+      </div>
 
+      <!-- Q2 -->
+      <div class="qa-block">
+        <div class="qa-q" id="pq-2">평소에 연애나 이성 얘기를 잘 하는 편인가요?</div>
+        <div class="parent-resp-label">부</div>
+        <div class="parent-resp-a" id="pa-2f" data-placeholder="답변을 입력해주세요."></div>
+        <div class="parent-resp-label" style="margin-top:6px">모</div>
+        <div class="parent-resp-a" id="pa-2m" data-placeholder="답변을 입력해주세요."></div>
+      </div>
 
-  <script>
-    /* ══════════════════════════════════════════════
-       CONSTANTS
-    ══════════════════════════════════════════════ */
-    const PW_VIEWER = 'bsa2026';
-    const PW_ADMIN  = 'chfhr2026';
-    const STORAGE_KEY = 'bsa_profile_data';
+      <!-- Q3 -->
+      <div class="qa-block">
+        <div class="qa-q" id="pq-3">어릴 때 어떤 아이였나요?</div>
+        <div class="parent-resp-label">부</div>
+        <div class="parent-resp-a" id="pa-3f" data-placeholder="답변을 입력해주세요."></div>
+        <div class="parent-resp-label" style="margin-top:6px">모</div>
+        <div class="parent-resp-a" id="pa-3m" data-placeholder="답변을 입력해주세요."></div>
+      </div>
 
-    /* ══════════════════════════════════════════════
-       EDITABLE FIELD IDs  (admin can edit these)
-    ══════════════════════════════════════════════ */
-    const EDITABLE_INFO = [
-      'field-name','field-age','field-job',
-      'field-location','field-body','field-mbti'
-    ];
-    const EDITABLE_QA = [
-      'q-intro-1','a-intro-1','q-intro-2','a-intro-2','q-intro-3','a-intro-3',
-      'q-love-1','a-love-1','q-love-2','a-love-2','q-love-3','a-love-3',
-      'q-type-1','a-type-1','q-type-2','a-type-2','q-type-3','a-type-3',
-      'q-secret-1','a-secret-1','q-secret-2','a-secret-2','q-secret-3','a-secret-3',
-      'header-subtitle'
-    ];
-    const ALL_EDITABLE = [...EDITABLE_INFO, ...EDITABLE_QA];
+      <!-- Q4 -->
+      <div class="qa-block">
+        <div class="qa-q" id="pq-4">남매 사이는 어떤 편이었어요?</div>
+        <div class="parent-resp-label">부</div>
+        <div class="parent-resp-a" id="pa-4f" data-placeholder="답변을 입력해주세요."></div>
+        <div class="parent-resp-label" style="margin-top:6px">모</div>
+        <div class="parent-resp-a" id="pa-4m" data-placeholder="답변을 입력해주세요."></div>
+      </div>
 
-    /* ══════════════════════════════════════════════
-       LOAD SAVED DATA
-    ══════════════════════════════════════════════ */
-    function loadData() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        ALL_EDITABLE.forEach(id => {
-          if (data[id] !== undefined) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = data[id];
-          }
-        });
-      } catch(e) { /* ignore */ }
-    }
+      <!-- Q5 -->
+      <div class="qa-block">
+        <div class="qa-q" id="pq-5">부모님 눈에는 어떤 사람을 만났으면 하세요? 이상형이 있으시다면요.</div>
+        <div class="parent-resp-label">부</div>
+        <div class="parent-resp-a" id="pa-5f" data-placeholder="답변을 입력해주세요."></div>
+        <div class="parent-resp-label" style="margin-top:6px">모</div>
+        <div class="parent-resp-a" id="pa-5m" data-placeholder="답변을 입력해주세요."></div>
+      </div>
+    </section>
 
-    function saveData() {
-      const data = {};
-      ALL_EDITABLE.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) data[id] = el.textContent;
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      // Toast
-      const toast = document.getElementById('save-toast');
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 1800);
-    }
+  </main>
+</div>
 
-    /* ══════════════════════════════════════════════
-       ENABLE ADMIN EDITING
-    ══════════════════════════════════════════════ */
-    function enableAdminMode() {
-      document.body.classList.add('admin-mode');
-      document.getElementById('mode-badge').textContent = 'ADMIN';
-      document.getElementById('mode-badge').className = 'admin';
+<button id="save-btn">저장하기</button>
+<div id="save-toast">SAVED ✓</div>
 
-      ALL_EDITABLE.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.setAttribute('contenteditable', 'true');
-      });
-    }
+<script>
+/* ════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════ */
+const PW_VIEWER = 'bsa2026';
+const PW_ADMIN  = 'chfhr2026';
+const STORAGE_KEY = 'bsa_profile_v2';
+const PHOTO_KEY   = 'bsa_photo_v2';
 
-    /* ══════════════════════════════════════════════
-       LOCK / UNLOCK
-    ══════════════════════════════════════════════ */
-    const overlay   = document.getElementById('lock-overlay');
-    const pwInput   = document.getElementById('pw-input');
-    const pwSubmit  = document.getElementById('pw-submit');
-    const pwError   = document.getElementById('pw-error');
-    const app       = document.getElementById('app');
+/* All editable field IDs */
+const INFO_IDS = ['f-name','f-age','f-job','f-location','f-body','f-mbti','f-family'];
+const QA_IDS = [
+  'qq-self-1','qa-self-1','qq-self-2','qa-self-2',
+  'qq-fam-1','qa-fam-1',
+  'qq-fam-2','qa-fam-2','qq-fam-2w','qa-fam-2w',
+  'qq-fam-3','qa-fam-3',
+  'qq-fam-4','qa-fam-4',
+  'qq-fam-5','qa-fam-5','qq-fam-5w','qa-fam-5w',
+  'qq-fam-6','qa-fam-6',
+  'qq-fam-7','qa-fam-7','qq-fam-7w','qa-fam-7w',
+  'qq-love-1','qa-love-1',
+  'qq-love-2','qa-love-2','qq-love-2w','qa-love-2w',
+  'qq-love-3','qa-love-3','qq-love-4','qa-love-4',
+  'pq-1','pa-1f','pa-1m',
+  'pq-2','pa-2f','pa-2m',
+  'pq-3','pa-3f','pa-3m',
+  'pq-4','pa-4f','pa-4m',
+  'pq-5','pa-5f','pa-5m',
+];
+const ALL_IDS = [...INFO_IDS, ...QA_IDS];
 
-    pwInput.addEventListener('input', () => {
-      pwSubmit.disabled = pwInput.value.length === 0;
-      pwError.classList.add('hidden');
-    });
-
-    function tryUnlock() {
-      const pw = pwInput.value.trim();
-      if (pw === PW_VIEWER) {
-        unlock(false);
-      } else if (pw === PW_ADMIN) {
-        unlock(true);
-      } else {
-        pwError.classList.remove('hidden');
-        pwInput.value = '';
-        pwSubmit.disabled = true;
-        pwInput.focus();
-      }
-    }
-
-    function unlock(isAdmin) {
-      overlay.classList.add('hidden');
-      app.classList.add('visible');
-      loadData();
-      if (isAdmin) enableAdminMode();
-    }
-
-    pwSubmit.addEventListener('click', tryUnlock);
-    pwInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !pwSubmit.disabled) tryUnlock();
-    });
-
-    document.getElementById('save-btn').addEventListener('click', saveData);
-
-    /* ══════════════════════════════════════════════
-       TOC ACTIVE HIGHLIGHT ON SCROLL
-    ══════════════════════════════════════════════ */
-    const sections = ['sec-basic','sec-intro','sec-love','sec-type','sec-secret'];
-    const tocLinks = document.querySelectorAll('.toc-link');
-
-    function updateToc() {
-      let current = sections[0];
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 80) current = id;
-      });
-      tocLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+/* ════════════════════════════════════════
+   DATA PERSISTENCE
+════════════════════════════════════════ */
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      ALL_IDS.forEach(id => {
+        if (d[id] !== undefined) {
+          const el = document.getElementById(id);
+          if (el) el.textContent = d[id];
+        }
       });
     }
+    // Photo
+    const photo = localStorage.getItem(PHOTO_KEY);
+    if (photo) setPhotoPreview(photo);
+  } catch(e) {}
+}
 
-    document.getElementById('content').addEventListener('scroll', updateToc);
-    window.addEventListener('scroll', updateToc);
-    updateToc();
-  </script>
+function saveData() {
+  const d = {};
+  ALL_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) d[id] = el.textContent;
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+  showToast();
+}
+
+function showToast() {
+  const t = document.getElementById('save-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ════════════════════════════════════════
+   PHOTO UPLOAD
+════════════════════════════════════════ */
+function setPhotoPreview(dataUrl) {
+  const slot = document.getElementById('photo-slot');
+  let img = slot.querySelector('img');
+  if (!img) { img = document.createElement('img'); slot.appendChild(img); }
+  img.src = dataUrl;
+  slot.querySelector('.photo-slot-icon').style.display = 'none';
+  slot.querySelector('.photo-slot-label').style.display = 'none';
+}
+
+document.getElementById('photo-slot').addEventListener('click', () => {
+  if (!document.body.classList.contains('admin-mode')) return;
+  document.getElementById('photo-input').click();
+});
+
+document.getElementById('photo-input').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setPhotoPreview(e.target.result);
+    localStorage.setItem(PHOTO_KEY, e.target.result);
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ════════════════════════════════════════
+   ADMIN MODE
+════════════════════════════════════════ */
+function enableAdmin() {
+  document.body.classList.add('admin-mode');
+  document.getElementById('mode-badge').textContent = 'ADMIN';
+  document.getElementById('mode-badge').className = 'admin';
+  ALL_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('contenteditable', 'true');
+  });
+}
+
+/* ════════════════════════════════════════
+   LOCK / UNLOCK
+════════════════════════════════════════ */
+const overlay  = document.getElementById('lock-overlay');
+const pwInput  = document.getElementById('pw-input');
+const pwBtn    = document.getElementById('pw-submit');
+const pwErr    = document.getElementById('pw-err');
+const app      = document.getElementById('app');
+
+pwInput.addEventListener('input', () => {
+  pwBtn.disabled = !pwInput.value.length;
+  pwErr.classList.add('hidden');
+});
+
+function tryUnlock() {
+  const pw = pwInput.value.trim();
+  if (pw === PW_VIEWER) { unlock(false); }
+  else if (pw === PW_ADMIN) { unlock(true); }
+  else {
+    pwErr.classList.remove('hidden');
+    pwInput.value = ''; pwBtn.disabled = true; pwInput.focus();
+  }
+}
+
+function unlock(isAdmin) {
+  overlay.classList.add('hidden');
+  app.classList.add('visible');
+  loadData();
+  if (isAdmin) enableAdmin();
+}
+
+pwBtn.addEventListener('click', tryUnlock);
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !pwBtn.disabled) tryUnlock(); });
+document.getElementById('save-btn').addEventListener('click', saveData);
+
+/* ════════════════════════════════════════
+   TOC HIGHLIGHT
+════════════════════════════════════════ */
+const SEC_IDS = ['sec-info','sec-self','sec-family','sec-love','sec-parents'];
+const tocLinks = document.querySelectorAll('.toc-link');
+
+function updateToc() {
+  let cur = SEC_IDS[0];
+  SEC_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 72) cur = id;
+  });
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}
+window.addEventListener('scroll', updateToc, { passive: true });
+updateToc();
+</script>
 </body>
 </html>
