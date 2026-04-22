@@ -1,419 +1,867 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>출연자 기록: F03 백승아</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #FAF9F6;
-  --card: #ffffff;
-  --border: #e5e5e5;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>지원서 열람 시스템</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  --accent: #E2725B;
-  --accent2: #FFC107;
+  <style>
+    /* ─── CSS VARIABLES ─────────────────────────────────────── */
+    :root {
+      --bg: #f5f3ee;
+      --bg-secondary: #eeece6;
+      --surface: #ffffff;
+      --surface-2: #f9f8f5;
+      --border: #d6d2c8;
+      --border-strong: #b0aa9e;
+      --text-primary: #1a1814;
+      --text-secondary: #5a5750;
+      --text-muted: #8c887f;
+      --accent: #8b2635;
+      --accent-light: #b84455;
+      --accent-bg: #fdf2f3;
+      --stamp-color: #8b2635;
+      --sidebar-bg: #f0ede6;
+      --sidebar-border: #d6d2c8;
+      --toc-active: #8b2635;
+      --overlay-bg: rgba(26, 24, 20, 0.55);
+      --modal-bg: #ffffff;
+      --input-border: #c8c4bb;
+      --btn-disabled: #c8c4bb;
+      --shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.15);
+    }
 
-  --text: #1B3022;
-  --text-muted: #6b7280;
-  --text-dim: #cbd5e1;
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141210;
+        --bg-secondary: #1c1a17;
+        --surface: #1e1c19;
+        --surface-2: #242220;
+        --border: #2e2c28;
+        --border-strong: #44413b;
+        --text-primary: #f0ede6;
+        --text-secondary: #a8a49b;
+        --text-muted: #6e6a62;
+        --accent: #d4556a;
+        --accent-light: #e0758a;
+        --accent-bg: #2a1a1d;
+        --stamp-color: #d4556a;
+        --sidebar-bg: #191714;
+        --sidebar-border: #2e2c28;
+        --toc-active: #d4556a;
+        --overlay-bg: rgba(10, 9, 7, 0.72);
+        --modal-bg: #1e1c19;
+        --input-border: #3a3830;
+        --btn-disabled: #3a3830;
+        --shadow: 0 4px 24px rgba(0,0,0,0.35);
+        --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
+      }
+    }
 
-  --red: #d97706;
-  --green: #4d7c0f;
-}
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Noto Serif KR',sans-serif; min-height:100vh; overflow-x:hidden; }
+    /* ─── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
 
-  /* LOCK */
-  #lock-screen {
-    position:fixed; inset:0; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); z-index:100;
-  }
-  .lock-deco {
-    font-family:'DM Serif Display',serif; font-size:80px; color:var(--accent);
-    opacity:0.5; letter-spacing:0.15em; margin-bottom:4px; user-select:none;
-    animation:none;
-  }
-  @keyframes breathe {
-    0%,100%{opacity:0.1;transform:scale(1)}
-    50%{opacity:0.06;transform:scale(0.98)}
-  }
-  .lock-subtitle { font-size:11px; letter-spacing:0.45em; color:var(--text-muted); text-transform:uppercase; margin-bottom:56px; }
-  .lock-box { display:flex; flex-direction:column; align-items:center; gap:12px; width:300px; }
-  .lock-label { font-size:10px; letter-spacing:0.3em; color:var(--text-muted); align-self:flex-start; text-transform:uppercase; }
-  .lock-input {
-    width:100%; background:var(--card); border:1px solid var(--border);
-    color:var(--text); font-family:'Noto Sans KR',sans-serif; font-size:14px;
-    letter-spacing:0.1em; padding:14px 18px; text-align:center; outline:none;
-    transition:border-color 0.3s; -webkit-appearance:none;
-  }
-  .lock-input::placeholder { color:var(--text-dim); }
-  .lock-input:focus { border-color:var(--accent); }
-  .lock-btn {
-    width:100%; background:transparent; border:1px solid var(--accent);
-    color:var(--accent); font-family:'Noto Sans KR',sans-serif; font-size:11px;
-    letter-spacing:0.35em; padding:13px; cursor:pointer; transition:all 0.25s; margin-top:4px;
-  }
-  .lock-btn:hover { background:var(--accent); color:var(--bg); }
-  .lock-error { font-size:11px; color:var(--red); letter-spacing:0.08em; height:16px; opacity:0; transition:opacity 0.3s; }
-  .lock-error.show { opacity:1; }
+    /* ─── LOCK OVERLAY ──────────────────────────────────────── */
+    #lock-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--overlay-bg);
+      backdrop-filter: blur(18px) saturate(0.8);
+      -webkit-backdrop-filter: blur(18px) saturate(0.8);
+      transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    #lock-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-  /* MAIN */
-  #main { display:block; opacity:0; transition:opacity 0.6s; }
-  #main.visible { opacity:1; }
+    .lock-modal {
+      background: var(--modal-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 48px 52px 44px;
+      width: min(440px, 92vw);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      animation: modalIn 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: none; }
+    }
 
-  /* HEADER */
-  .site-header {
-    border-bottom:1px solid var(--border); padding:36px 56px;
-    display:flex; align-items:flex-end; justify-content:space-between;
-  }
-  .header-name { font-family:'DM Serif Display',serif; font-size:48px; color:var(--text); line-height:1; }
-  .header-meta { display:flex; gap:16px; margin-top:10px; align-items:center; }
-  .header-sub { font-size:10px; letter-spacing:0.35em; color:var(--text-muted); text-transform:uppercase; }
-  .mode-badge { font-size:10px; letter-spacing:0.2em; padding:4px 10px; border:1px solid; text-transform:uppercase; }
-  .mode-badge.viewer { color:var(--text-muted); border-color:var(--border); }
-  .mode-badge.admin { color:var(--accent); border-color:var(--accent); }
-  .header-actions { display:flex; gap:8px; align-items:center; }
-  .action-btn {
-    font-size:10px; letter-spacing:0.2em; color:var(--text-muted); background:none;
-    border:1px solid var(--border); padding:9px 16px; cursor:pointer;
-    transition:all 0.25s; font-family:'Noto Sans KR',sans-serif; text-transform:uppercase;
-  }
-  .action-btn:hover { border-color:var(--accent); color:var(--accent); }
-  .action-btn.save-btn { border-color:var(--accent); color:var(--accent); }
-  .action-btn.save-btn:hover { background:var(--accent); color:var(--bg); }
-  .action-btn.saved { border-color:var(--green); color:var(--green); pointer-events:none; }
+    .lock-modal::before {
+      content: '⬛ RESTRICTED';
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 28px;
+    }
 
-  /* LAYOUT */
-  .container { max-width:1000px; margin:0 auto; padding:40px 56px 80px; display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-  .section { background:var(--card); border:1px solid var(--border); padding:30px; }
-  .section.full { grid-column:1/-1; }
-  .section-label { font-size:10px; letter-spacing:0.4em; color:var(--accent); text-transform:uppercase; margin-bottom:22px; display:flex; align-items:center; gap:10px; }
-  .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+    .lock-modal h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
 
-  /* FIELD */
-  .field { margin-bottom:20px; }
-  .field:last-child { margin-bottom:0; }
-  .field-label { font-size:10px; letter-spacing:0.25em; color:var(--text-muted); margin-bottom:7px; text-transform:uppercase; }
-  .field-value {
-    font-family:'Noto Serif KR',serif; font-size:14px; color:var(--text);
-    line-height:1.75; min-height:22px; border-bottom:1px solid transparent;
-    padding:3px 0; transition:all 0.2s; white-space:pre-wrap; word-break:break-all;
-  }
-  .field-value[contenteditable="true"] { outline:none; border-bottom:1px solid var(--border); padding:3px 8px; background:rgba(255,255,255,0.015); cursor:text; }
-  .field-value[contenteditable="true"]:focus { border-bottom-color:var(--accent); background:rgba(201,169,110,0.03); }
-  .field-value:empty::before { content:attr(data-placeholder); color:var(--text-dim); font-style:italic; font-size:13px; }
+    .lock-modal p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
 
-  /* Q&A */
-  .qa-item { padding:22px 0; border-bottom:1px solid var(--border); }
-  .qa-item:first-child { padding-top:0; }
-  .qa-item:last-child { border-bottom:none; padding-bottom:0; }
-  .qa-q { font-size:11px; letter-spacing:0.15em; color:var(--accent); margin-bottom:10px; font-family:'Noto Sans KR',sans-serif; font-weight:500; display:flex; gap:8px; align-items:flex-start; }
-  .qa-q-num { opacity:0.5; flex-shrink:0; }
-  .qa-q-text[contenteditable="true"] { outline:none; border-bottom:1px dashed rgba(201,169,110,0.3); padding-bottom:1px; cursor:text; }
-  .qa-a { font-family:'Noto Serif KR',serif; font-size:14px; color:var(--text); line-height:1.8; padding-left:20px; min-height:22px; white-space:pre-wrap; }
-  .qa-a[contenteditable="true"] { outline:none; border-left:2px solid var(--border); padding-left:14px; background:rgba(255,255,255,0.01); cursor:text; transition:border-color 0.2s; }
-  .qa-a[contenteditable="true"]:focus { border-left-color:var(--accent); background:rgba(201,169,110,0.025); }
-  .qa-a:empty::before { content:attr(data-placeholder); color:var(--text-dim); font-style:italic; font-size:13px; }
-  .add-qa-btn { display:none; margin-top:18px; background:none; border:1px dashed var(--border); color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-size:11px; letter-spacing:0.2em; padding:10px; width:100%; cursor:pointer; transition:all 0.25s; }
-  .add-qa-btn:hover { border-color:var(--accent); color:var(--accent); }
-  body.admin-mode .add-qa-btn { display:block; }
+    .lock-modal input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      background: var(--surface-2);
+      border: 1px solid var(--input-border);
+      border-radius: 2px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .lock-modal input[type="password"]:focus {
+      border-color: var(--accent);
+    }
+    .lock-modal input[type="password"]::placeholder {
+      color: var(--text-muted);
+    }
 
-  /* TAGS */
-  .tags-wrap { display:flex; flex-wrap:wrap; gap:8px; min-height:28px; }
-  .tag { font-size:11px; letter-spacing:0.1em; color:var(--text-muted); border:1px solid var(--border); padding:5px 11px; font-family:'Noto Sans KR',sans-serif; position:relative; }
-  body.admin-mode .tag { padding-right:24px; }
-  .tag-del { display:none; position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--red); cursor:pointer; font-size:12px; line-height:1; padding:0; }
-  body.admin-mode .tag-del { display:block; }
-  .tag-add { display:none; background:none; border:1px dashed var(--border); color:var(--text-dim); font-family:'Noto Sans KR',sans-serif; font-size:11px; letter-spacing:0.15em; padding:5px 11px; cursor:pointer; transition:all 0.25s; }
-  .tag-add:hover { border-color:var(--accent); color:var(--accent); }
-  body.admin-mode .tag-add { display:inline-flex; align-items:center; gap:5px; }
+    .lock-modal button {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .lock-modal button:disabled {
+      background: var(--btn-disabled);
+      cursor: not-allowed;
+    }
+    .lock-modal button:not(:disabled):hover {
+      background: var(--accent-light);
+    }
 
-  /* TOAST */
-  #toast { position:fixed; bottom:32px; right:32px; background:var(--card); border:1px solid var(--accent); color:var(--accent); font-size:11px; letter-spacing:0.2em; padding:12px 20px; opacity:0; transform:translateY(8px); transition:all 0.3s; pointer-events:none; z-index:50; }
-  #toast.show { opacity:1; transform:translateY(0); }
+    .lock-error {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 8px;
+      height: 16px;
+      transition: opacity 0.2s;
+    }
+    .lock-error.hidden { opacity: 0; }
 
-  @media(max-width:700px){
-    .container{grid-template-columns:1fr;padding:24px;}
-    .section.full{grid-column:1;}
-    .site-header{padding:24px;flex-direction:column;align-items:flex-start;gap:16px;}
-  }
-</style>
+    /* ─── MAIN LAYOUT ───────────────────────────────────────── */
+    #app {
+      display: flex;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 0.6s 0.2s;
+    }
+    #app.visible { opacity: 1; }
+
+    /* ─── SIDEBAR ───────────────────────────────────────────── */
+    #sidebar {
+      width: 240px;
+      min-width: 240px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--sidebar-border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 40px 0;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 0 28px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .sidebar-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .sidebar-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0 16px;
+      flex: 1;
+    }
+    .toc-item {
+      margin-bottom: 2px;
+    }
+    .toc-link {
+      display: block;
+      padding: 7px 12px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1.5;
+      border-left: 2px solid transparent;
+    }
+    .toc-link:hover {
+      color: var(--text-primary);
+      background: var(--surface);
+    }
+    .toc-link.active {
+      color: var(--toc-active);
+      background: var(--accent-bg);
+      border-left-color: var(--accent);
+      font-weight: 500;
+    }
+    .toc-link.sub {
+      font-size: 11.5px;
+      padding-left: 24px;
+      color: var(--text-muted);
+    }
+
+    .sidebar-footer {
+      padding: 16px 28px 0;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    #mode-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.15em;
+      padding: 4px 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    #mode-badge.viewer {
+      background: var(--surface-2);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    #mode-badge.admin {
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    /* ─── CONTENT ───────────────────────────────────────────── */
+    #content {
+      flex: 1;
+      max-width: 800px;
+      padding: 56px 64px 120px;
+      min-width: 0;
+    }
+
+    /* ─── DOCUMENT HEADER ───────────────────────────────────── */
+    .doc-header {
+      margin-bottom: 52px;
+      position: relative;
+    }
+    .doc-stamp {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      color: var(--stamp-color);
+      border: 1.5px solid var(--stamp-color);
+      display: inline-block;
+      padding: 3px 10px;
+      margin-bottom: 20px;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+    .doc-main-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .doc-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .doc-divider {
+      height: 1px;
+      background: var(--border);
+      margin-top: 28px;
+    }
+    .doc-divider::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+      margin-top: -1px;
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────────── */
+    .section {
+      margin-bottom: 52px;
+      scroll-margin-top: 32px;
+    }
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── INFO GRID ─────────────────────────────────────────── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .info-row {
+      display: contents;
+    }
+    .info-label {
+      background: var(--surface-2);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 16px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    .info-value {
+      border-bottom: 1px solid var(--border);
+      padding: 11px 16px;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      min-height: 42px;
+    }
+    .info-row:last-child .info-label,
+    .info-row:last-child .info-value {
+      border-bottom: none;
+    }
+
+    /* ─── Q&A ITEMS ─────────────────────────────────────────── */
+    .qa-item {
+      margin-bottom: 32px;
+    }
+    .qa-item:last-child { margin-bottom: 0; }
+    .qa-question {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.6;
+      display: flex;
+      gap: 8px;
+    }
+    .qa-question::before {
+      content: 'Q.';
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .qa-answer {
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.85;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      min-height: 52px;
+      white-space: pre-wrap;
+    }
+    .qa-answer:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* ─── EDITABLE (ADMIN) ──────────────────────────────────── */
+    [contenteditable="true"] {
+      outline: none;
+      cursor: text;
+    }
+    [contenteditable="true"]:hover {
+      background: var(--accent-bg) !important;
+      border-color: var(--accent) !important;
+    }
+    [contenteditable="true"]:focus {
+      background: var(--accent-bg) !important;
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px rgba(139,38,53,0.10);
+    }
+    .admin-hint {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      background: var(--accent-bg);
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      display: none;
+    }
+    body.admin-mode .admin-hint { display: block; }
+
+    /* ─── SAVE BUTTON ───────────────────────────────────────── */
+    #save-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: none;
+      transition: background 0.2s, transform 0.15s;
+      z-index: 100;
+    }
+    #save-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+    body.admin-mode #save-btn { display: block; }
+
+    #save-toast {
+      position: fixed;
+      bottom: 80px;
+      right: 32px;
+      padding: 10px 18px;
+      background: var(--text-primary);
+      color: var(--bg);
+      border-radius: 2px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 100;
+    }
+    #save-toast.show { opacity: 1; transform: none; }
+
+    /* ─── SCROLLBAR ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      #sidebar {
+        display: none;
+      }
+      #content {
+        padding: 36px 28px 80px;
+      }
+      .info-grid {
+        grid-template-columns: 90px 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div id="lock-screen">
-  <div class="lock-deco">출연자 기록: F03 백승아</div>
-  <div class="lock-subtitle">Character File — Private</div>
-  <div class="lock-box">
-    <div class="lock-label">비밀번호 입력</div>
-    <input type="password" class="lock-input" id="pw-input" placeholder="password" autocomplete="off">
-    <button class="lock-btn" onclick="tryUnlock()">ENTER</button>
-    <div class="lock-error" id="lock-error">올바르지 않은 비밀번호입니다</div>
+  <!-- ═══════════════════════════════════════════════════════
+       LOCK OVERLAY
+  ══════════════════════════════════════════════════════════ -->
+  <div id="lock-overlay">
+    <div class="lock-modal">
+      <h2>출연자 '백승아'의 기록을<br/>열람하시겠습니까?</h2>
+      <p>기록을 열람하려면 비밀번호를 입력하세요.</p>
+      <input
+        type="password"
+        id="pw-input"
+        placeholder="비밀번호 입력"
+        autocomplete="off"
+        autofocus
+      />
+      <button id="pw-submit" disabled>열람하기</button>
+      <div class="lock-error hidden" id="pw-error">— 비밀번호가 올바르지 않습니다</div>
+    </div>
   </div>
-</div>
 
-<div id="toast"></div>
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN APP
+  ══════════════════════════════════════════════════════════ -->
+  <div id="app">
 
-<div id="main">
-  <header class="site-header">
-    <div class="header-left">
-      <div class="header-name">백승아</div>
-      <div class="header-meta">
-        <span class="header-sub">Character Interview File</span>
-        <span class="mode-badge viewer" id="mode-badge">VIEWER</span>
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-label">BSA — 2026</div>
+        <div class="sidebar-title">백승아<br/>지원서</div>
+        <div class="sidebar-sub">연애 프로그램 출연 지원</div>
       </div>
-    </div>
-    <div class="header-actions" id="header-actions"></div>
-  </header>
 
-  <div class="container">
+      <ul class="toc-list" id="toc">
+        <li class="toc-item">
+          <a class="toc-link" href="#sec-basic">기본 인적사항</a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-link" href="#sec-intro">자기소개</a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-link" href="#sec-love">연애관</a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-link" href="#sec-type">이상형</a>
+        </li>
+        <li class="toc-item">
+          <a class="toc-link" href="#sec-secret">비공개 문항</a>
+        </li>
+      </ul>
 
-    <div class="section">
-      <div class="section-label">기본 프로필</div>
-      <div class="field">
-        <div class="field-label">이름</div>
-        <div class="field-value" data-key="name" data-placeholder="백승아"></div>
+      <div class="sidebar-footer">
+        <span id="mode-badge" class="viewer">VIEWER</span>
       </div>
-      <div class="field">
-        <div class="field-label">나이 / 생년월일</div>
-        <div class="field-value" data-key="age" data-placeholder="미입력"></div>
-      </div>
-      <div class="field">
-        <div class="field-label">직업 / 소속</div>
-        <div class="field-value" data-key="job" data-placeholder="미입력"></div>
-      </div>
-      <div class="field">
-        <div class="field-label">외형 메모</div>
-        <div class="field-value" data-key="appearance" data-placeholder="외모, 스타일, 첫인상 등"></div>
-      </div>
-    </div>
+    </nav>
 
-    <div class="section">
-      <div class="section-label">성격 &amp; 키워드</div>
-      <div class="field">
-        <div class="field-label">한 줄 소개</div>
-        <div class="field-value" data-key="intro" data-placeholder="이 캐릭터를 한 문장으로 표현하면?"></div>
-      </div>
-      <div class="field">
-        <div class="field-label">성격 키워드</div>
-        <div class="tags-wrap" id="tags-personality">
-          <button class="tag-add" onclick="addTag('tags-personality')">+ 추가</button>
-        </div>
-      </div>
-      <div class="field">
-        <div class="field-label">말투 / 어조</div>
-        <div class="field-value" data-key="speech" data-placeholder="말투, 자주 쓰는 표현, 어조 특징 등"></div>
-      </div>
-      <div class="field">
-        <div class="field-label">좋아하는 것 / 싫어하는 것</div>
-        <div class="field-value" data-key="likedislike" data-placeholder="취향, 회피하는 것 등"></div>
-      </div>
-    </div>
+    <!-- CONTENT -->
+    <main id="content">
 
-    <div class="section full">
-      <div class="section-label">배경 설정</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-        <div>
-          <div class="field">
-            <div class="field-label">가족 / 성장 배경</div>
-            <div class="field-value" data-key="background" data-placeholder="출신, 가족관계, 성장 환경 등"></div>
+      <!-- Document Header -->
+      <div class="doc-header">
+        <div class="doc-stamp">Confidential · Internal Use Only</div>
+        <h1 class="doc-main-title">연애 프로그램 출연 지원서</h1>
+        <p class="doc-subtitle">
+          본 문서는 내부 열람 전용입니다. 무단 배포를 금합니다.<br/>
+          <span id="header-subtitle" style="color:var(--text-muted)">백승아 / 2026 시즌 지원</span>
+        </p>
+        <div class="doc-divider"></div>
+      </div>
+
+      <div class="admin-hint">✎ 관리자 모드 — 항목을 클릭하여 직접 편집할 수 있습니다. 완료 후 [저장] 버튼을 누르세요.</div>
+
+      <!-- SECTION 1: 기본 인적사항 -->
+      <section class="section" id="sec-basic">
+        <h2 class="section-title">
+          <span class="section-num">01</span>
+          기본 인적사항
+        </h2>
+        <div class="info-grid">
+          <div class="info-row">
+            <div class="info-label">이름</div>
+            <div class="info-value" id="field-name">백승아</div>
           </div>
-          <div class="field">
-            <div class="field-label">현재 상황</div>
-            <div class="field-value" data-key="current" data-placeholder="현재 생활, 고민, 처한 환경 등"></div>
+          <div class="info-row">
+            <div class="info-label">나이</div>
+            <div class="info-value" id="field-age"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">직업</div>
+            <div class="info-value" id="field-job"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">거주지</div>
+            <div class="info-value" id="field-location"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">키 / 체중</div>
+            <div class="info-value" id="field-body"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">MBTI</div>
+            <div class="info-value" id="field-mbti"></div>
           </div>
         </div>
-        <div>
-          <div class="field">
-            <div class="field-label">숨기고 있는 것 / 내면</div>
-            <div class="field-value" data-key="hidden" data-placeholder="겉으로 안 드러나는 면, 콤플렉스, 욕망 등"></div>
-          </div>
-          <div class="field">
-            <div class="field-label">세계관 내 위치</div>
-            <div class="field-value" data-key="worldposition" data-placeholder="이 세계에서 이 캐릭터의 역할, 위치"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
 
-    <div class="section full">
-      <div class="section-label">캐릭터 인터뷰</div>
-      <div class="qa-list" id="qa-list">
+      <!-- SECTION 2: 자기소개 -->
+      <section class="section" id="sec-intro">
+        <h2 class="section-title">
+          <span class="section-num">02</span>
+          자기소개
+        </h2>
         <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">01.</span><span class="qa-q-text" data-key="q1">자기소개를 해주세요.</span></div>
-          <div class="qa-a" data-key="a1" data-placeholder="백승아의 대답을 입력하세요"></div>
+          <div class="qa-question" id="q-intro-1">자신을 한 문장으로 소개해주세요.</div>
+          <div class="qa-answer" id="a-intro-1" data-placeholder="내용을 입력해주세요."></div>
         </div>
         <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">02.</span><span class="qa-q-text" data-key="q2">지금 가장 원하는 게 뭔가요?</span></div>
-          <div class="qa-a" data-key="a2" data-placeholder="백승아의 대답을 입력하세요"></div>
+          <div class="qa-question" id="q-intro-2">주변에서 자신을 어떻게 보는 것 같나요?</div>
+          <div class="qa-answer" id="a-intro-2" data-placeholder="내용을 입력해주세요."></div>
         </div>
         <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">03.</span><span class="qa-q-text" data-key="q3">스스로 가장 자랑스러운 점은요?</span></div>
-          <div class="qa-a" data-key="a3" data-placeholder="백승아의 대답을 입력하세요"></div>
+          <div class="qa-question" id="q-intro-3">요즘 가장 좋아하는 것이 있다면?</div>
+          <div class="qa-answer" id="a-intro-3" data-placeholder="내용을 입력해주세요."></div>
         </div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">04.</span><span class="qa-q-text" data-key="q4">반대로 가장 부끄럽거나 감추고 싶은 점은요?</span></div>
-          <div class="qa-a" data-key="a4" data-placeholder="백승아의 대답을 입력하세요"></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">05.</span><span class="qa-q-text" data-key="q5">누군가를 좋아하게 될 때 어떤 사람에게 끌리나요?</span></div>
-          <div class="qa-a" data-key="a5" data-placeholder="백승아의 대답을 입력하세요"></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">06.</span><span class="qa-q-text" data-key="q6">지금까지 살면서 가장 힘들었던 순간은?</span></div>
-          <div class="qa-a" data-key="a6" data-placeholder="백승아의 대답을 입력하세요"></div>
-        </div>
-        <div class="qa-item">
-          <div class="qa-q"><span class="qa-q-num">07.</span><span class="qa-q-text" data-key="q7">마지막으로 하고 싶은 말이 있다면?</span></div>
-          <div class="qa-a" data-key="a7" data-placeholder="백승아의 대답을 입력하세요"></div>
-        </div>
-      </div>
-      <button class="add-qa-btn" onclick="addQA()">+ 질문 추가</button>
-    </div>
+      </section>
 
-    <div class="section full">
-      <div class="section-label">작가 메모</div>
-      <div class="field">
-        <div class="field-label">롤플레이 노트 / 참고사항</div>
-        <div class="field-value" data-key="memo" data-placeholder="RP할 때 유의할 점, 설정 메모, 자유롭게 기록" style="min-height:80px;"></div>
-      </div>
-    </div>
+      <!-- SECTION 3: 연애관 -->
+      <section class="section" id="sec-love">
+        <h2 class="section-title">
+          <span class="section-num">03</span>
+          연애관
+        </h2>
+        <div class="qa-item">
+          <div class="qa-question" id="q-love-1">연애할 때 본인이 어떤 사람인가요?</div>
+          <div class="qa-answer" id="a-love-1" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-love-2">가장 최근 연애가 끝난 이유는 무엇인가요?</div>
+          <div class="qa-answer" id="a-love-2" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-love-3">연애에서 가장 중요하게 생각하는 것은?</div>
+          <div class="qa-answer" id="a-love-3" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+      </section>
 
+      <!-- SECTION 4: 이상형 -->
+      <section class="section" id="sec-type">
+        <h2 class="section-title">
+          <span class="section-num">04</span>
+          이상형
+        </h2>
+        <div class="qa-item">
+          <div class="qa-question" id="q-type-1">외적으로 끌리는 스타일이 있다면?</div>
+          <div class="qa-answer" id="a-type-1" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-type-2">성격적으로 끌리는 사람의 특징은?</div>
+          <div class="qa-answer" id="a-type-2" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-type-3">절대 만나지 못할 유형이 있다면?</div>
+          <div class="qa-answer" id="a-type-3" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: 비공개 문항 -->
+      <section class="section" id="sec-secret">
+        <h2 class="section-title">
+          <span class="section-num">05</span>
+          비공개 문항
+        </h2>
+        <div class="qa-item">
+          <div class="qa-question" id="q-secret-1">지원자 본인만 알고 있는 숨겨진 모습이 있다면?</div>
+          <div class="qa-answer" id="a-secret-1" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-secret-2">프로그램 참여 후 기대하는 것이 있다면?</div>
+          <div class="qa-answer" id="a-secret-2" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-question" id="q-secret-3">제작진에게 전하고 싶은 말이 있다면?</div>
+          <div class="qa-answer" id="a-secret-3" data-placeholder="내용을 입력해주세요."></div>
+        </div>
+      </section>
+
+    </main>
   </div>
-</div>
 
-<script>
-const VIEWER_PW = 'bsa2026';
-const ADMIN_PW  = '회사도방학이필요해';
-const STORAGE_KEY = 'bsa_data_v1';
-let isAdmin = false;
-let qaCount = 7;
+  <!-- SAVE BUTTON & TOAST -->
+  <button id="save-btn">저장하기</button>
+  <div id="save-toast">SAVED ✓</div>
 
-document.getElementById('pw-input').addEventListener('keydown', e => { if(e.key==='Enter') tryUnlock(); });
 
-function tryUnlock() {
-  const val = document.getElementById('pw-input').value;
-  const err = document.getElementById('lock-error');
-  if (val === ADMIN_PW) { isAdmin=true; enterSite(); }
-  else if (val === VIEWER_PW) { isAdmin=false; enterSite(); }
-  else {
-    err.classList.add('show');
-    document.getElementById('pw-input').value='';
-    setTimeout(()=>err.classList.remove('show'), 2500);
-  }
-}
+  <script>
+    /* ══════════════════════════════════════════════
+       CONSTANTS
+    ══════════════════════════════════════════════ */
+    const PW_VIEWER = 'bsa2026';
+    const PW_ADMIN  = 'chfhr2026';
+    const STORAGE_KEY = 'bsa_profile_data';
 
-function enterSite() {
-  document.getElementById('lock-screen').style.display='none';
-  const main = document.getElementById('main');
-  main.style.display='block';
-  setTimeout(()=>main.classList.add('visible'),10);
-  loadData();
-  if (isAdmin) {
-    document.body.classList.add('admin-mode');
-    document.getElementById('mode-badge').textContent='ADMIN';
-    document.getElementById('mode-badge').className='mode-badge admin';
-    document.getElementById('header-actions').innerHTML=`
-      <button class="action-btn" onclick="clearAll()">초기화</button>
-      <button class="action-btn save-btn" id="save-btn" onclick="saveData()">저장</button>
-    `;
-    enableEditing();
-  }
-}
+    /* ══════════════════════════════════════════════
+       EDITABLE FIELD IDs  (admin can edit these)
+    ══════════════════════════════════════════════ */
+    const EDITABLE_INFO = [
+      'field-name','field-age','field-job',
+      'field-location','field-body','field-mbti'
+    ];
+    const EDITABLE_QA = [
+      'q-intro-1','a-intro-1','q-intro-2','a-intro-2','q-intro-3','a-intro-3',
+      'q-love-1','a-love-1','q-love-2','a-love-2','q-love-3','a-love-3',
+      'q-type-1','a-type-1','q-type-2','a-type-2','q-type-3','a-type-3',
+      'q-secret-1','a-secret-1','q-secret-2','a-secret-2','q-secret-3','a-secret-3',
+      'header-subtitle'
+    ];
+    const ALL_EDITABLE = [...EDITABLE_INFO, ...EDITABLE_QA];
 
-function enableEditing() {
-  document.querySelectorAll('.field-value[data-key], .qa-a[data-key], .qa-q-text[data-key]')
-    .forEach(el => el.contentEditable='true');
-}
-
-function addTag(id) {
-  const name = prompt('키워드를 입력하세요:');
-  if (!name||!name.trim()) return;
-  const wrap = document.getElementById(id);
-  const tag = document.createElement('span');
-  tag.className='tag'; tag.dataset.value=name.trim();
-  tag.innerHTML=`${name.trim()}<button class="tag-del" onclick="this.parentElement.remove();autoSave()">×</button>`;
-  wrap.insertBefore(tag, wrap.querySelector('.tag-add'));
-  autoSave();
-}
-
-function addQA() {
-  qaCount++;
-  const num = String(qaCount).padStart(2,'0');
-  const item = document.createElement('div');
-  item.className='qa-item';
-  item.innerHTML=`
-    <div class="qa-q"><span class="qa-q-num">${num}.</span><span class="qa-q-text" data-key="q${qaCount}" contenteditable="true">질문을 입력하세요</span></div>
-    <div class="qa-a" data-key="a${qaCount}" contenteditable="true" data-placeholder="백승아의 대답을 입력하세요"></div>`;
-  document.getElementById('qa-list').appendChild(item);
-  item.querySelector('.qa-q-text').focus();
-}
-
-function gatherData() {
-  const d = {};
-  document.querySelectorAll('[data-key]').forEach(el=>{ d[el.dataset.key]=el.innerText.trim(); });
-  const tags=[];
-  document.querySelectorAll('#tags-personality .tag').forEach(t=>tags.push(t.dataset.value));
-  d['__tags']=tags; d['__qac']=qaCount;
-  return d;
-}
-
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(gatherData()));
-  const btn=document.getElementById('save-btn');
-  if(btn){ btn.textContent='저장됨 ✓'; btn.classList.add('saved'); setTimeout(()=>{btn.textContent='저장';btn.classList.remove('saved');},2000); }
-  showToast('저장 완료');
-}
-
-function autoSave() {
-  if(!isAdmin) return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(gatherData()));
-}
-
-function loadData() {
-  const raw=localStorage.getItem(STORAGE_KEY);
-  if(!raw) return;
-  try {
-    const d=JSON.parse(raw);
-    const saved=d['__qac']||7;
-    while(qaCount<saved){
-      qaCount++;
-      const num=String(qaCount).padStart(2,'0');
-      const item=document.createElement('div');
-      item.className='qa-item';
-      item.innerHTML=`<div class="qa-q"><span class="qa-q-num">${num}.</span><span class="qa-q-text" data-key="q${qaCount}"></span></div><div class="qa-a" data-key="a${qaCount}" data-placeholder="백승아의 대답을 입력하세요"></div>`;
-      document.getElementById('qa-list').appendChild(item);
+    /* ══════════════════════════════════════════════
+       LOAD SAVED DATA
+    ══════════════════════════════════════════════ */
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        ALL_EDITABLE.forEach(id => {
+          if (data[id] !== undefined) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = data[id];
+          }
+        });
+      } catch(e) { /* ignore */ }
     }
-    document.querySelectorAll('[data-key]').forEach(el=>{ if(d[el.dataset.key]!==undefined) el.innerText=d[el.dataset.key]; });
-    const tags=d['__tags']||[];
-    const wrap=document.getElementById('tags-personality');
-    wrap.querySelectorAll('.tag').forEach(t=>t.remove());
-    const btn=wrap.querySelector('.tag-add');
-    tags.forEach(t=>{
-      const tag=document.createElement('span');
-      tag.className='tag'; tag.dataset.value=t;
-      tag.innerHTML=`${t}<button class="tag-del" onclick="this.parentElement.remove();autoSave()">×</button>`;
-      wrap.insertBefore(tag,btn);
+
+    function saveData() {
+      const data = {};
+      ALL_EDITABLE.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.textContent;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      // Toast
+      const toast = document.getElementById('save-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
+    /* ══════════════════════════════════════════════
+       ENABLE ADMIN EDITING
+    ══════════════════════════════════════════════ */
+    function enableAdminMode() {
+      document.body.classList.add('admin-mode');
+      document.getElementById('mode-badge').textContent = 'ADMIN';
+      document.getElementById('mode-badge').className = 'admin';
+
+      ALL_EDITABLE.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute('contenteditable', 'true');
+      });
+    }
+
+    /* ══════════════════════════════════════════════
+       LOCK / UNLOCK
+    ══════════════════════════════════════════════ */
+    const overlay   = document.getElementById('lock-overlay');
+    const pwInput   = document.getElementById('pw-input');
+    const pwSubmit  = document.getElementById('pw-submit');
+    const pwError   = document.getElementById('pw-error');
+    const app       = document.getElementById('app');
+
+    pwInput.addEventListener('input', () => {
+      pwSubmit.disabled = pwInput.value.length === 0;
+      pwError.classList.add('hidden');
     });
-    if(isAdmin) enableEditing();
-  } catch(e){}
-}
 
-function clearAll() {
-  if(!confirm('모든 내용을 초기화할까요?')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
-}
+    function tryUnlock() {
+      const pw = pwInput.value.trim();
+      if (pw === PW_VIEWER) {
+        unlock(false);
+      } else if (pw === PW_ADMIN) {
+        unlock(true);
+      } else {
+        pwError.classList.remove('hidden');
+        pwInput.value = '';
+        pwSubmit.disabled = true;
+        pwInput.focus();
+      }
+    }
 
-function showToast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
-}
+    function unlock(isAdmin) {
+      overlay.classList.add('hidden');
+      app.classList.add('visible');
+      loadData();
+      if (isAdmin) enableAdminMode();
+    }
 
-document.addEventListener('input', e=>{ if(e.target.dataset.key) autoSave(); });
-</script>
+    pwSubmit.addEventListener('click', tryUnlock);
+    pwInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !pwSubmit.disabled) tryUnlock();
+    });
+
+    document.getElementById('save-btn').addEventListener('click', saveData);
+
+    /* ══════════════════════════════════════════════
+       TOC ACTIVE HIGHLIGHT ON SCROLL
+    ══════════════════════════════════════════════ */
+    const sections = ['sec-basic','sec-intro','sec-love','sec-type','sec-secret'];
+    const tocLinks = document.querySelectorAll('.toc-link');
+
+    function updateToc() {
+      let current = sections[0];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 80) current = id;
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    document.getElementById('content').addEventListener('scroll', updateToc);
+    window.addEventListener('scroll', updateToc);
+    updateToc();
+  </script>
 </body>
 </html>
