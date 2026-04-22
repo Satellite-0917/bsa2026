@@ -766,10 +766,9 @@ async function loadData() {
           if (el) el.textContent = data.data[id];
         }
       });
-    }
 
-    const photo = localStorage.getItem(PHOTO_KEY);
-    if (photo) setPhotoPreview(photo);
+      if (data.data.photo) setPhotoPreview(data.data.photo);
+    }
   } catch(e) {
     console.log(e);
   }
@@ -781,6 +780,9 @@ async function saveData() {
     const el = document.getElementById(id);
     if (el) d[id] = el.textContent;
   });
+
+  const currentPhoto = document.querySelector('#photo-slot img');
+  if (currentPhoto) d.photo = currentPhoto.src;
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
 
