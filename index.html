@@ -708,7 +708,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const supabase = supabase.createClient(
+const supabaseClient = supabase.createClient(
   "https://wrfjgzdcjgokqclcfmxk.supabase.co",
   "sb_publishable_-SnHq5UNx6ayAk9RRzzrKg_lSJJMtDB"
 );
@@ -771,6 +771,15 @@ function saveData() {
     if (el) d[id] = el.textContent;
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
+  // 👇 여기 추가
+supabaseClient
+  .from('profile_data')
+  .upsert([
+    {
+      id: 1,
+      data: d
+    }
+  ]);
   showToast();
 }
 
