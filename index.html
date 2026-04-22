@@ -764,22 +764,26 @@ function loadData() {
   } catch(e) {}
 }
 
-function saveData() {
+async function saveData() {
   const d = {};
   ALL_IDS.forEach(id => {
     const el = document.getElementById(id);
     if (el) d[id] = el.textContent;
   });
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-  // 👇 여기 추가
-supabaseClient
-  .from('profile_data')
-  .upsert([
-    {
-      id: 1,
-      data: d
-    }
-  ]);
+
+  const { data, error } = await supabaseClient
+    .from('profile_data')
+    .upsert([
+      {
+        id: 1,
+        data: d
+      }
+    ]);
+
+  console.log(data, error);
+
   showToast();
 }
 
